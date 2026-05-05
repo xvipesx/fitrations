@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from datetime import date, datetime
 
 class FoodItem(BaseModel):
-    meal_type: str
     name: str
     calories: int
     protein: float

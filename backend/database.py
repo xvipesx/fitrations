@@ -18,7 +18,6 @@ def create_database():
             print("This seems like initial database creation, setting table.")
             cursor.execute('''CREATE TABLE Food_Items(
                 UUID TEXT,
-                MEAL TEXT,
                 NAME TEXT,
                 CALORIES INTEGER,
                 PROTEIN REAL,
@@ -31,7 +30,7 @@ def create_database():
             cursor.execute("PRAGMA table_info(Food_Items)")
             columns = cursor.fetchall()
 
-            expected_columns = {"UUID", "MEAL", "NAME", "CALORIES", "PROTEIN", "CARBS", "FAT"}
+            expected_columns = {"UUID", "NAME", "CALORIES", "PROTEIN", "CARBS", "FAT"}
             existing_columns = {row[1] for row in columns}
 
             if not expected_columns.issubset(existing_columns):
@@ -53,7 +52,7 @@ def create_database():
         conn.close()
 
 # Conduct a general query against the database for all entries
-def query_foods():
+def query_all_foods():
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
@@ -74,8 +73,8 @@ def add_food(food):
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO Food_Items 
-            VALUES (?, ?, ?, ?, ?, ?, ?)''',
-            (new_uuid, food.meal_type, food.name, food.calories, food.protein, food.carbs, food.fat))
+            VALUES (?, ?, ?, ?, ?, ?)''',
+            (new_uuid, food.name, food.calories, food.protein, food.carbs, food.fat))
         conn.commit()
         return new_uuid
     except sqlite3.Error as error:
@@ -90,6 +89,25 @@ def delete_food(id):
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Items WHERE UUID = (?)''', (id,))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return None
+        return id
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def modify_food(id, food):
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''UPDATE Food_Items 
+            SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?
+            WHERE UUID = ?''',
+            (food.name, food.calories, food.protein, food.carbs, food.fat, id))
         conn.commit()
         if cursor.rowcount == 0:
             return None

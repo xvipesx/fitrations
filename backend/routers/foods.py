@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/foods")
 def get_all_foods():
-    result = backend.database.query_foods()
+    result = backend.database.query_all_foods()
     return result
 
 @router.get("/foods/{id}")
@@ -27,5 +27,8 @@ def delete_food(id: str):
     return result
 
 @router.put("/foods/{id}")
-def modify_food(id: str):
-    return id
+def modify_food(id: str, food: FoodItem):
+    result = backend.database.modify_food(id, food)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Food not found.")
+    return result
