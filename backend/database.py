@@ -1,6 +1,10 @@
 import sqlite3
 import uuid
 
+## 
+## FOOD DATABASE SECTION
+##
+
 def create_database():
     try:
         conn = sqlite3.connect('fitrations.db')
@@ -112,6 +116,82 @@ def modify_food(id, food):
         if cursor.rowcount == 0:
             return None
         return id
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+## 
+## FOOD LOG SECTION
+##
+
+def create_food_journal():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE Food_Log(
+            UUID TEXT,
+            PORTION REAL,
+            TYPE TEXT,
+            DATE TEXT);''')
+        conn.commit()
+        print("Table created successfully.")
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+
+## 
+## GOALS SECTION
+##
+
+def create_goal_table():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''CREATE TABLE Daily_Goal(
+            CALORIES INTEGER,
+            PROTEIN REAL,
+            CARBS REAL,
+            FAT REAL);''')
+        conn.commit()
+        print("Table created successfully.")
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def set_goal(goal):
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''INSERT INTO Daily_Goal 
+            VALUES (?, ?, ?, ?)''',
+            (goal.calorie_goal, goal.protein_goal, goal.carbs_goal, goal.fat_goal))
+        conn.commit()
+        print("Goal set successfully.")
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def retrieve_goal():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        statement = '''SELECT * FROM Daily_Goal'''
+        cursor.execute(statement)
+        results = cursor.fetchall()
+        return results
     except sqlite3.Error as error:
         print("The following error occurred -", error)
         return None

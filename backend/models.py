@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date, datetime
+from datetime import datetime
 
 class FoodItem(BaseModel):
     name: str
@@ -8,14 +8,13 @@ class FoodItem(BaseModel):
     carbs: float
     fat: float
 
-class FoodLog(BaseModel):
+class Journal(BaseModel):
     food_uuid: str
-    grams: float
+    portion: float
     meal_type: str
     timestamp: datetime
 
-class DailyGoal(BaseModel):
-    date: date
+class Goal(BaseModel):
     calorie_goal: int
     protein_goal: float
     carbs_goal: float

@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import backend.database
-from backend.routers import journal, foods
+from backend.routers import journal, foods, goals
 
 
 #from core.config import settings
@@ -32,6 +32,7 @@ app.add_middleware(
 # Add API endpoint routing
 app.include_router(journal.router)
 app.include_router(foods.router)
+app.include_router(goals.router)
 
 if __name__ == "__main__":
     import uvicorn
