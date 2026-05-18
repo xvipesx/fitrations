@@ -1,3 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, Cookie, Response, BackgroundTasks
+from fastapi import APIRouter, HTTPException
+from backend.models import Journal
+
+import backend.database
 
 router = APIRouter()

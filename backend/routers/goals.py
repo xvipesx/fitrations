@@ -5,13 +5,17 @@ import backend.database
 
 router = APIRouter()
 
-@router.post("/goal")
+@router.post("/initial_goal")
 def set_goal(goal: Goal):
-    backend.database.create_goal_table()
-    result = backend.database.set_goal(goal)
+    result = backend.database.set_initial_goal(goal)
     return result
 
-@router.get("/goal")
+@router.get("/retrieve_goal")
 def obtain_goal():
     result = backend.database.retrieve_goal()
+    return result
+
+@router.post("/modify_goal")
+def modify_goal(goal: Goal):
+    result = backend.database.modify_goal(goal)
     return result

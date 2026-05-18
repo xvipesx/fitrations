@@ -1,3 +1,11 @@
+## [0.0.0] - 2026-05-18
+- Added food search API router and ability to query foods in database by UUID
+- Completed funcationality of nutrition goal API routing and database table functionality
+- Separated database creation into multiple functions into main.py for simplicity, including schema checks on all tables.
+- Database now consists of 3 separate tables: 1 food database table, a journal table and a goals table
+## [0.0.0] - 2026-05-17
+- Established extremely basic front end via REACT and VITE.
+- Began UX design decisions
 ## [0.0.0] - 2026-05-05
 - Working sqlite3 database creation
 - Separated database query and UUID functions into the database.py file

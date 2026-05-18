@@ -10,8 +10,12 @@ from backend.routers import journal, foods, goals
 
 #from core.config import settings
 
-# Verify database exists or setup a new DB
+# Database operations to create DB and verify tables
 backend.database.create_database()
+backend.database.create_database_table()
+backend.database.create_journal_table()
+backend.database.create_goals_table()
+
 
 
 app = FastAPI(
