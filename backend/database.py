@@ -293,10 +293,10 @@ def retrieve_goal():
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        statement = '''SELECT * FROM Goals'''
-        cursor.execute(statement)
-        results = cursor.fetchall()
-        return results
+        cursor.execute('''SELECT * FROM Goals''')
+        columns = [description[0] for description in cursor.description]
+        result = cursor.fetchone()
+        return dict(zip(columns, result))
     except sqlite3.Error as error:
         print("The following error occurred -", error)
         return None
