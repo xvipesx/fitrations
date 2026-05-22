@@ -15,12 +15,15 @@ function RightBar() {
             setCarbsGoal(response.data.CARBS);
             setFatGoal(response.data.FAT);
         }
-        catch {
+        catch (error) {
             console.error("Failed to obtain daily goal information", error);
         }
     }
 
-    const remaining = calorieGoal - 100
+    const caloriesRemaining = calorieGoal - 100
+    const proteinRemaining = proteinGoal - 0
+    const carbsRemaining = carbGoal - 0
+    const fatRemaining = fatGoal - 0
 
     useEffect(() => {
         fetchDailyGoal()
@@ -29,16 +32,37 @@ function RightBar() {
     return (
         <aside style={styles.sidebar}>
             <div style={styles.item}>
-                <p style={styles.label}>Daily Goal</p>
-                <p style={styles.value}>{calorieGoal} kcal</p>
+                <p style={styles.label}>Daily Goals</p>
+                <p style={styles.value}>Calories: {calorieGoal}</p>
+                <p style={styles.value}>Protein: {proteinGoal}g</p>
+                <p style={styles.value}>Carbs: {carbGoal}g</p>
+                <p style={styles.value}>Fat: {fatGoal}g</p>
             </div>
             <div style={styles.item}>
-                <p style={styles.label}>Calories Remaining</p>
+                <p style={styles.label}>Daily Remaining</p>
                 <p style={styles.value} style={{
                     ...styles.value,
-                    color: remaining < 0 ? "#ff4a4a" : "#4aff72"
+                    color: caloriesRemaining < 0 ? "#ff4a4a" : "#4aff72"
                 }}>
-                    {remaining} kcal
+                    Calories: {caloriesRemaining}
+                </p>
+                <p style={styles.value} style={{
+                    ...styles.value,
+                    color: proteinRemaining < 0 ? "#ff4a4a" : "#4aff72"
+                }}>
+                    Protein: {proteinRemaining}g
+                </p>
+                <p style={styles.value} style={{
+                    ...styles.value,
+                    color: carbsRemaining < 0 ? "#ff4a4a" : "#4aff72"
+                }}>
+                    Carbs: {carbsRemaining}g
+                </p>
+                <p style={styles.value} style={{
+                    ...styles.value,
+                    color: fatRemaining < 0 ? "#ff4a4a" : "#4aff72"
+                }}>
+                    Fat: {fatRemaining}g
                 </p>
             </div>
         </aside>
@@ -63,12 +87,13 @@ const styles = {
     },
     label: {
         color: "#9e9e9e",
-        fontSize: "0.8rem",
+        fontSize: "1.0rem",
+        fontWeight: "bold",
         margin: "0 0 4px 0",
     },
     value: {
         color: "#e0e0e0",
-        fontSize: "1.2rem",
+        fontSize: "0.8rem",
         fontWeight: "bold",
         margin: 0,
     },

@@ -2,8 +2,8 @@ import { useState } from "react"
 
 const navItems = [
     { id: "journal", label: "Journal" },
-    { id: "addFood", label: "Add Food" },
-    { id: "modifyFood", label: "Modify Food" },
+    { id: "database", label: "Database" },
+    { id: "calculator", label: "Calculator" },
     { id: "goals", label: "Goals" },
     { id: "summary", label: "Summary" },
 ]
@@ -17,7 +17,7 @@ function SideBar({ onNavigate }) {
     }
 
     return (
-        <aside style={styles.sidebar}>
+        <aside style={styles.sideBar}>
             <div style={styles.appName}>FitRations</div>
             <nav>
                 {navItems.map((item) => (
@@ -38,7 +38,7 @@ function SideBar({ onNavigate }) {
 }
 
 const styles = {
-    sidebar: {
+    sideBar: {
         width: "220px",
         height: "100vh",
         backgroundColor: "#1a1a1a",
