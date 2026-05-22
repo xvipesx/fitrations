@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 import database
-from routers import journal, foods, goals
+from routers import journal, foods, goals, calc
 
 
 # Database operations to create DB and verify tables
@@ -37,6 +37,7 @@ app.add_middleware(
 app.include_router(journal.router)
 app.include_router(foods.router)
 app.include_router(goals.router)
+app.include_router(calc.router)
 
 if __name__ == "__main__":
     import uvicorn

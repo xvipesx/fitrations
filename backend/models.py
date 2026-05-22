@@ -19,3 +19,9 @@ class Goal(BaseModel):
     protein_goal: float
     carbs_goal: float
     fat_goal: float
+
+class CalcBMR(BaseModel):
+    weight: float
+    height: float
+    age: int
+    sex: str

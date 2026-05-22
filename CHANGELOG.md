@@ -1,3 +1,9 @@
+## [0.0.0] - 2026-05-20
+- Modified primary display navigation to clarify components and add selection for a Calculator
+- Added BMR calculator functionality
+## [0.0.0] - 2026-05-19
+- Changed backend file nesting
+- Page now displays daily goal correctly
 ## [0.0.0] - 2026-05-18
 - Added food search API router and ability to query foods in database by UUID
 - Completed funcationality of nutrition goal API routing and database table functionality

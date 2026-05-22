@@ -1,7 +1,11 @@
 import { useState } from "react"
 import './App.css'
+
+// Local component imports //
 import SideBar from "./components/SideBar"
 import RightBar from "./components/RightBar"
+import DisplayJournal from "./components/Journal"
+import DisplayCalculator from "./components/Calculator"
 
 
 function App() {
@@ -11,11 +15,33 @@ function App() {
         <div style={styles.shell}>
             <SideBar onNavigate={setActiveView} />
             <main style={styles.main}>
-                {activeView === "journal" && <div>Journal View</div>}
-                {activeView === "addFood" && <div>Add Food View</div>}
-                {activeView === "modifyFood" && <div>Modify Food View</div>}
-                {activeView === "goals" && <div>Goals View</div>}
-                {activeView === "summary" && <div>Summary View</div>}
+                {activeView === "journal" && 
+                <div style={styles.viewContainer}>
+                    <p style={styles.title}>Daily Journal</p>
+                    <DisplayJournal />
+                </div>
+                }
+                {activeView === "database" && 
+                <div style={styles.viewContainer}>
+                    <p style={styles.title}>Database Management</p>
+                </div>
+                }
+                {activeView === "calculator" && 
+                <div style={styles.viewContainer}>
+                    <p style={styles.title}>BMR Calculator</p>
+                    <DisplayCalculator />
+                </div>
+                }
+                {activeView === "goals" && 
+                <div style={styles.viewContainer}>
+                    <p style={styles.title}>Goals</p>
+                </div>
+                }
+                {activeView === "summary" && 
+                <div style={styles.viewContainer}>
+                    <p style={styles.title}>Summary</p>
+                </div>
+                }
             </main>
             <RightBar />
         </div>
@@ -23,6 +49,11 @@ function App() {
 }
 
 const styles = {
+    viewContainer: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "24px",
+    },
     shell: {
         display: "flex",
         height: "100vh",
@@ -31,9 +62,15 @@ const styles = {
     },
     main: {
         flex: 1,
-        padding: "24px",
+        padding: "30px",
         overflowY: "auto",
     },
+    title: {
+        color: "#097b72",
+        fontSize: "1.5rem",
+        fontWeight: "bold",
+        margin: "0 0 4px 0",
+    }
 }
 
 export default App
