@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react"
-import { searchFoods } from "../routers/foods"
+import api from "../api.js"
 
 function FoodSearch({ onFoodSelected }) {
     const [query, setQuery] = useState("")
     const [results, setResults] = useState([])
     const [selected, setSelected] = useState(null)
 
+    // Need the avoid returning too many results with 1 character or less in search
     useEffect(() => {
         if (query.length < 2) {
             setResults([])
             return
         }
-
+        // Wait 300ms for user to stop typing to avoid flooding the API
         const delay = setTimeout(async () => {
             const foods = await searchFoods(query)
             setResults(foods)
