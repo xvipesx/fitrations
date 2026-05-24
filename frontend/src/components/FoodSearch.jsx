@@ -4,7 +4,6 @@ import api from "../api.js"
 function FoodSearch({ onFoodSelected }) {
     const [query, setQuery] = useState("")
     const [results, setResults] = useState([])
-    const [selectedFood, handleSelectedFood] = useState(null)
 
     // Need to avoid returning too many results with 1 character or less in search
     useEffect(() => {
@@ -22,7 +21,8 @@ function FoodSearch({ onFoodSelected }) {
     }, [query])
 
     const handleSelected = (food) => {
-        handleSelectedFood(food)
+        setQuery("")
+        setResults([])
         onFoodSelected(food)
     }
 
@@ -56,6 +56,7 @@ const styles = {
     container: { position: "relative", width: "100%" },
     input: {
         width: "100%",
+        boxSizing: "border-box",
         padding: "10px",
         backgroundColor: "#2c2c2c",
         border: "1px solid #3d3d3d",
