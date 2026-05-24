@@ -1,9 +1,10 @@
 import sqlite3
 import uuid
+from datetime import datetime
 
-## 
-## DATABASE CREATION
-##
+###################################### 
+## DATABASE CREATION AND VALIDATION ##
+######################################
 
 def create_database():
     try:
@@ -32,12 +33,13 @@ def create_database_table():
         if result < 1:
             print("This seems like initial database creation, setting up the food database table.")
             cursor.execute('''CREATE TABLE Food_Database(
-                UUID TEXT,
+                FOOD_UUID TEXT,
                 NAME TEXT,
                 CALORIES INTEGER,
                 PROTEIN REAL,
                 CARBS REAL,
-                FAT REAL);''')
+                FAT REAL,
+                SERVING_SIZE TEXT);''')
             conn.commit()
             print("Primary food database table created successfully.")
         else:
@@ -45,7 +47,7 @@ def create_database_table():
             cursor.execute("PRAGMA table_info(Food_Database)")
             columns = cursor.fetchall()
 
-            expected_columns = {"UUID", "NAME", "CALORIES", "PROTEIN", "CARBS", "FAT"}
+            expected_columns = {"FOOD_UUID", "NAME", "CALORIES", "PROTEIN", "CARBS", "FAT", "SERVING_SIZE"}
             existing_columns = {row[1] for row in columns}
 
             if not expected_columns.issubset(existing_columns):
@@ -80,14 +82,10 @@ def create_journal_table():
         if result < 1:
             print("No food journal table exists. Creating it.")
             cursor.execute('''CREATE TABLE Food_Journal(
-                UUID TEXT,
-                NAME TEXT,
-                CALORIES INTEGER,
-                PROTEIN REAL,
-                CARBS REAL,
-                FAT REAL,
+                JOURNAL_UUID TEXT,
+                FOOD_UUID TEXT,
+                MEAL_TYPE TEXT,
                 PORTION REAL,
-                TYPE TEXT,
                 DATE TEXT);''')
             conn.commit()
             print("Food journal table created successfully.")
@@ -96,7 +94,7 @@ def create_journal_table():
             cursor.execute("PRAGMA table_info(Food_Journal)")
             columns = cursor.fetchall()
 
-            expected_columns = {"UUID", "NAME", "CALORIES", "PROTEIN", "CARBS", "FAT", "PORTION", "TYPE", "DATE"}
+            expected_columns = {"JOURNAL_UUID", "FOOD_UUID", "MEAL_TYPE", "PORTION", "DATE"}
             existing_columns = {row[1] for row in columns}
 
             if not expected_columns.issubset(existing_columns):
@@ -161,10 +159,11 @@ def create_goals_table():
         cursor.close()
         conn.close()   
 
-## 
-## DATABASE TECHNIQUES
-##
+######################### 
+## DATABASE TECHNIQUES ##
+#########################
 
+# Allow absolute query of all food items in the database
 def query_all_foods():
     try:
         conn = sqlite3.connect('fitrations.db')
@@ -185,9 +184,9 @@ def add_food(food):
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        cursor.execute('''INSERT INTO Food_Database 
-            VALUES (?, ?, ?, ?, ?, ?)''',
-            (new_uuid, food.name, food.calories, food.protein, food.carbs, food.fat))
+        cursor.execute('''INSERT INTO Food_Database (FOOD_UUID, NAME, CALORIES, PROTEIN, CARBS, FAT, SERVING_SIZE)
+            VALUES (?, ?, ?, ?, ?, ?, ?)''',
+            (new_uuid, food.name, food.calories, food.protein, food.carbs, food.fat, food.serving_size))
         conn.commit()
         return new_uuid
     except sqlite3.Error as error:
@@ -201,7 +200,7 @@ def return_food(id):
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        cursor.execute('''SELECT * FROM Food_Database WHERE UUID = (?)''', (id,))
+        cursor.execute('''SELECT * FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
         results = cursor.fetchall()
         return results
@@ -216,7 +215,7 @@ def delete_food(id):
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        cursor.execute('''DELETE FROM Food_Database WHERE UUID = (?)''', (id,))
+        cursor.execute('''DELETE FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
         if cursor.rowcount == 0:
             return None
@@ -233,9 +232,9 @@ def modify_food(id, food):
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
         cursor.execute('''UPDATE Food_Database 
-            SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?
-            WHERE UUID = ?''',
-            (food.name, food.calories, food.protein, food.carbs, food.fat, id))
+            SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?, SERVING_SIZE = ?,
+            WHERE FOOD_UUID = ?''',
+            (food.name, food.calories, food.protein, food.carbs, food.fat, food.serving_size, id))
         conn.commit()
         if cursor.rowcount == 0:
             return None
@@ -252,7 +251,7 @@ def search_foods(query):
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Food_Database 
-            WHERE NAME LIKE ?''', (f'%{query}%',))
+            WHERE NAME LIKE (?)''', (f'%{query}%',))
         columns = [description[0] for description in cursor.description]
         results = cursor.fetchall()
         foods = [dict(zip(columns, row)) for row in results]
@@ -264,20 +263,83 @@ def search_foods(query):
         cursor.close()
         conn.close()
 
-## 
-## FOOD JOURNAL SECTION
-##
+######################## 
+## JOURNAL TECHNIQUES ##
+########################
 
+def query_journal():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        statement = '''SELECT * FROM Food_Journal'''
+        cursor.execute(statement)
+        results = cursor.fetchall()
+        print(results)
+        return results
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
 
-## 
-## GOALS SECTION
-##
+def add_journal_entry(data):
+    journal_uuid = str(uuid.uuid4()) # Journal entry receives unique UUID separate from food_uuid in Food_Database
+    now = datetime.now()
+    formatted_date = now.strftime("%Y-%m-%d") # 
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        # Journal intentionally uses FOOD_UUID from Food_Database to avoid data duplication in two tables.
+        cursor.execute('''INSERT INTO Food_Journal (JOURNAL_UUID, FOOD_UUID, MEAL_TYPE, PORTION, DATE) 
+                       VALUES (?, ?, ?, ?, ?)''', 
+                       (journal_uuid, data.food_uuid, data.meal_type, data.portion, formatted_date))
+        conn.commit()
+        return journal_uuid
+    except sqlite3.Error as error:
+        print("The folloiwng error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def delete_journal_entry(id):
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''DELETE FROM Food_Journal WHERE JOURNAL_UUID = (?) ''', (id,)) # Uses journal_uuid
+        conn.commit()
+        return id
+    except sqlite3.Error as error:
+        print("The folloiwng error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+def clear_journal():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''DELETE FROM Food_Journal''')
+        conn.commit()
+        return None
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
+###################### 
+## GOALS TECHNIQUES ##
+######################
 
 def set_initial_goal(goal):
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        cursor.execute('''INSERT INTO Goals 
+        cursor.execute('''INSERT INTO Goals (CALORIES, PROTEIN, CARBS, FAT)
             VALUES (?, ?, ?, ?)''',
             (goal.calorie_goal, goal.protein_goal, goal.carbs_goal, goal.fat_goal))
         conn.commit()
@@ -296,7 +358,10 @@ def retrieve_goal():
         cursor.execute('''SELECT * FROM Goals''')
         columns = [description[0] for description in cursor.description]
         result = cursor.fetchone()
-        return dict(zip(columns, result))
+        if result is None:
+            print("No goal set.")
+        else:
+            return dict(zip(columns, result))
     except sqlite3.Error as error:
         print("The following error occurred -", error)
         return None

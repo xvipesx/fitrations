@@ -4,9 +4,9 @@ import api from "../api.js"
 function FoodSearch({ onFoodSelected }) {
     const [query, setQuery] = useState("")
     const [results, setResults] = useState([])
-    const [selected, setSelected] = useState(null)
+    const [selectedFood, handleSelectedFood] = useState(null)
 
-    // Need the avoid returning too many results with 1 character or less in search
+    // Need to avoid returning too many results with 1 character or less in search
     useEffect(() => {
         if (query.length < 2) {
             setResults([])
@@ -14,25 +14,16 @@ function FoodSearch({ onFoodSelected }) {
         }
         // Wait 300ms for user to stop typing to avoid flooding the API
         const delay = setTimeout(async () => {
-            const foods = await searchFoods(query)
-            setResults(foods)
+            const response = await api.get('/foods/search', { params: { query : query }});
+            setResults(response.data)
         }, 300)
 
         return () => clearTimeout(delay)
     }, [query])
 
-    function handleSelect(food) {
-        setSelected(food)
-        setResults([])
-        setQuery(food.NAME)
-    }
-
-    function handleAdd() {
-        if (selected) {
-            onFoodSelected(selected)
-            setSelected(null)
-            setQuery("")
-        }
+    const handleSelected = (food) => {
+        handleSelectedFood(food)
+        onFoodSelected(food)
     }
 
     return (
@@ -40,7 +31,7 @@ function FoodSearch({ onFoodSelected }) {
             <input
                 style={styles.input}
                 type="text"
-                placeholder="Search foods..."
+                placeholder="Search food database..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
@@ -48,21 +39,13 @@ function FoodSearch({ onFoodSelected }) {
                 <div style={styles.dropdown}>
                     {results.map((food) => (
                         <div
-                            key={food.UUID}
+                            key={food.FOOD_UUID}
                             style={styles.dropdownItem}
-                            onClick={() => handleSelect(food)}
+                            onClick={() => handleSelected(food)}
                         >
-                            {food.NAME} — {food.CALORIES} kcal
+                            {food.NAME} — {food.CALORIES} kcal | Protein: {food.PROTEIN}g | Carbs: {food.CARBS}g | Fat: {food.FAT}g | Serving: {food.SERVING_SIZE}
                         </div>
                     ))}
-                </div>
-            )}
-            {selected && (
-                <div style={styles.selected}>
-                    <span>{selected.NAME} selected</span>
-                    <button style={styles.button} onClick={handleAdd}>
-                        Add to Journal
-                    </button>
                 </div>
             )}
         </div>
@@ -94,6 +77,7 @@ const styles = {
         color: "#e0e0e0",
         cursor: "pointer",
         borderBottom: "1px solid #3d3d3d",
+        fontSize: "0.8rem",
     },
     selected: {
         marginTop: "12px",
@@ -101,14 +85,6 @@ const styles = {
         alignItems: "center",
         gap: "12px",
         color: "#e0e0e0",
-    },
-    button: {
-        padding: "8px 16px",
-        backgroundColor: "#4a9eff",
-        color: "#1a1a1a",
-        border: "none",
-        borderRadius: "4px",
-        cursor: "pointer",
     },
 }
 

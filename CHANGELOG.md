@@ -1,3 +1,9 @@
+## [0.0.0] - 2026-05-23
+- Completed addition of food journal routers and modified router handling of UUIDs to distinguish the journal UUID from database UUID.
+- Updated database SQL statement to ensure column consistency
+- Added food journal database management functions
+- Established basic journal frontend search function
+- Established FoodSearch component to act as a child of journal and pass selected item from database for future journal modifications
 ## [0.0.0] - 2026-05-20
 - Modified primary display navigation to clarify components and add selection for a Calculator
 - Added BMR calculator functionality
