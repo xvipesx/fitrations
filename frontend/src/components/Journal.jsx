@@ -47,40 +47,43 @@ function DisplayJournal ({}) {
     // FoodSearch needs to obtain a food from the database, and store it in a variable here with the UUID so I can pair it with the portions and meal type
     return (
         <div style={styles.container}>
-            <FoodSearch onFoodSelected={handleSelectedFood} />
-            {selectedFood && (
-                <p>Selected: {selectedFood}</p>
-            )}
-            <p></p>
-            <form onSubmit={(event) => {
-                event.preventDefault()
-                handleSubmit(formData)
-                }}>
-                <p></p>
-                <label>
-                    How many portions?
-                    <input
-                        type="text"
-                        name="portion" 
-                        value={formData.portion}
-                        onChange={updateFormData}
-                        required
-                    />
-                </label>
-                <p></p>
-                <label>
-                    Meal:
-                    <select name="meal_type" value={formData.meal_type} onChange={updateFormData}>
-                        <option value='' disabled={true}>Select meal...</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="dinner">Dinner</option>
-                        <option value="snack">Snack</option>
-                    </select>
-                </label>
-                <button type="reset" onClick={resetFields}>Reset</button>
-                <button type="submit">Add</button>
-            </form>
+            <div style={styles.card}>
+                <FoodSearch onFoodSelected={handleSelectedFood} />
+                {selectedFood && (
+                    <p>Selected: {selectedFood}</p>
+                )}
+                <form onSubmit={(event) => {
+                    event.preventDefault()
+                    handleSubmit(formData)
+                    }}>
+                    <label>
+                        How many portions?
+                        <input
+                            type="text"
+                            name="portion" 
+                            value={formData.portion}
+                            onChange={updateFormData}
+                            required
+                        />
+                    </label>
+                    <label>
+                        Meal:
+                        <select name="meal_type" value={formData.meal_type} onChange={updateFormData}>
+                            <option value='' disabled={true}>Select meal...</option>
+                            <option value="breakfast">Breakfast</option>
+                            <option value="lunch">Lunch</option>
+                            <option value="dinner">Dinner</option>
+                            <option value="snack">Snack</option>
+                        </select>
+                    </label>
+                    <button type="reset" onClick={resetFields}>Reset</button>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <hr></hr>
+            <div style={styles.card}>
+            <label>Journal Entries</label>
+            </div>
         </div>
     )
 }
@@ -109,6 +112,13 @@ const styles = {
         alignItems: "center",
         position: "relative", 
         width: "100%" },
+    card: {
+        backgroundColor: "#2c2c2c",
+        border: "1px solid #3d3d3d",
+        borderRadius: "8px",
+        padding: "24px",
+        marginBottom: "24px",
+    }
 }
 
 export default DisplayJournal
