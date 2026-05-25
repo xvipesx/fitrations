@@ -10,6 +10,11 @@ def query_journal():
     result = database.query_journal()
     return result
 
+@router.get("/query_journal_by_date")
+def query_journal_by_date(date: str):
+    result = database.query_journal_by_date(date)
+    return result
+
 @router.post("/add_journal_entry")
 def add_journal_entry(data: Journal):
     result = database.add_journal_entry(data)
