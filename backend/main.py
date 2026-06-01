@@ -8,15 +8,15 @@ import database
 from routers import journal, foods, goals, calc
 
 
-# Database operations to create DB and verify tables
+# Database operations to create initial DB if it doesn't exist and verify tables
 database.create_database()
 database.create_database_table()
 database.create_journal_table()
 database.create_goals_table()
 
 app = FastAPI(
-    title="Nutrition Tracking API",
-    description="API to interact with program database",
+    title="FitRation Nutrition Tracking API",
+    description="API to interact with program SQL database",
     version="0.0.0",
     docs_url="/docs",
 )
