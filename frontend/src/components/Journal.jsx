@@ -1,17 +1,9 @@
-import { useState, useEffect, use } from "react"
+import { useState, use } from "react"
 import api from "../api.js"
 import FoodSearch from "./FoodSearch.jsx"
 
 
-function DisplayJournal ({}) {
-    // Set and format date needed for journal query
-    const now = new Date()
-    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
-    const[query, setQuery] = useState(date)
-
-    // Prepare array for journal entries display
-    const[journalEntries, setJournalEntries] = useState([])
-
+function DisplayJournal ({ onJournalData }) {
     // Prepare blank form and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
@@ -60,21 +52,6 @@ function DisplayJournal ({}) {
             portion: "",
         });
     }
-
-    // API requires query param to be date= rather than query=
-    useEffect(() => {
-        const fetchJournal = async () => {
-            try {
-                const response = await api.get('/query_journal_by_date', { params: { date : query }});
-                setJournalEntries(response.data)
-            }
-            catch (error) {
-                console.error("Failed to receive journal data:", error)
-            }
-            
-        }
-        fetchJournal()
-    }, [query])
 
     // FoodSearch needs to obtain a food from the database, and store it in a variable here with the UUID so I can pair it with the portions and meal type
     return (
@@ -129,7 +106,7 @@ function DisplayJournal ({}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {journalEntries.map((entry) => (
+                    {onJournalData.map((entry) => (
                         <tr key={entry.JOURNAL_UUID}>
                             <td>{entry.DATE}</td>
                             <td>{entry.MEAL_TYPE}</td>

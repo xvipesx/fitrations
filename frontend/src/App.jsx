@@ -1,7 +1,8 @@
-import { useState } from "react"
-import './App.css'
+import { useState, useEffect } from "react"
 
 // Local component imports //
+import './App.css'
+import api from "./api.js"
 import SideBar from "./components/SideBar"
 import RightBar from "./components/RightBar"
 import DisplayJournal from "./components/Journal"
@@ -9,6 +10,33 @@ import DisplayCalculator from "./components/Calculator"
 
 
 function App() {
+    // Journal retrieval logic is at app level to ensure a single state and API call, 
+    // but data is available to goals and journal display
+
+    // Set and format date needed for journal query
+    const now = new Date()
+    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+    const[query, setQuery] = useState(date)
+
+    // Prepare array for journal entries display
+    const[journalEntries, setJournalEntries] = useState([])
+
+    // API requires query param to be date= rather than query=
+    useEffect(() => {
+        const fetchJournal = async () => {
+            try {
+                const response = await api.get('/query_journal_by_date', { params: { date : query }});
+                setJournalEntries(response.data)
+            }
+            catch (error) {
+                console.error("Failed to receive journal data:", error)
+            }
+            
+        }
+        fetchJournal()
+    }, [query])
+
+
     const [activeView, setActiveView] = useState("journal")
 
     return (
@@ -18,7 +46,7 @@ function App() {
                 {activeView === "journal" && 
                 <div style={styles.viewContainer}>
                     <p style={styles.title}>Daily Journal</p>
-                    <DisplayJournal />
+                    <DisplayJournal onJournalData={journalEntries}/> 
                 </div>
                 }
                 {activeView === "database" && 
