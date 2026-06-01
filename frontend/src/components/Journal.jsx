@@ -4,27 +4,33 @@ import FoodSearch from "./FoodSearch.jsx"
 
 
 function DisplayJournal ({}) {
-    // Prepare array for journal entries display
+    // Set and format date needed for journal query
     const now = new Date()
     const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
     const[query, setQuery] = useState(date)
+
+    // Prepare array for journal entries display
     const[journalEntries, setJournalEntries] = useState([])
-    // Prepare blank form  and food selection variable for journal submissions
+
+    // Prepare blank form and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
         meal_type: "",
         portion: "",
     })
     const[selectedFood, setSelectedFood] = useState("")
+
     // Passed from child FoodSearch component to update food name and form UUID
     const handleSelectedFood = (food) => {
         setSelectedFood(food.NAME)
         setFormData({...formData, "food_uuid": food.FOOD_UUID})
     }
-    // Form data updates for portions and meal type
+
+    // Form data updates for portions and meal type before submission to journal
     const updateFormData = (data) => {
         setFormData({...formData, [data.target.name]: data.target.value})
     }
+
     // Ensure types are correct before submission to update journal
     const convertedTypes = (data) => {
         return {
@@ -33,6 +39,8 @@ function DisplayJournal ({}) {
         portion: parseFloat(data.portion),
         }
     }
+
+    // Submit food UUID, meal type and portions to journal for tracking
     const handleSubmit = async (data) => {
         const convertedForm = convertedTypes(data)
             try {
@@ -43,6 +51,8 @@ function DisplayJournal ({}) {
                 console.error("Failed to post journal entry:", error)
             }
         }
+
+    // Journal submission reset    
     const resetFields = () => {
         setFormData({
             food_uuid: "",
@@ -51,11 +61,11 @@ function DisplayJournal ({}) {
         });
     }
 
+    // API requires query param to be date= rather than query=
     useEffect(() => {
         const fetchJournal = async () => {
             try {
                 const response = await api.get('/query_journal_by_date', { params: { date : query }});
-                console.log(response.data) 
                 setJournalEntries(response.data)
             }
             catch (error) {
