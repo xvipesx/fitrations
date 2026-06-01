@@ -22,20 +22,21 @@ function App() {
     const[journalEntries, setJournalEntries] = useState([])
 
     // API requires query param to be date= rather than query=
-    useEffect(() => {
-        const fetchJournal = async () => {
-            try {
-                const response = await api.get('/query_journal_by_date', { params: { date : query }});
-                setJournalEntries(response.data)
-            }
-            catch (error) {
-                console.error("Failed to receive journal data:", error)
-            }
-            
+    const fetchJournal = async () => {
+        try {
+            const response = await api.get('/query_journal_by_date', { params: { date : query }});
+            setJournalEntries(response.data)
         }
+        catch (error) {
+            console.error("Failed to receive journal data:", error)
+        }
+            
+    }
+
+    // useEffect calls fetchJournal defined on its own to allow passing to child
+    useEffect(() => {
         fetchJournal()
     }, [query])
-
 
     const [activeView, setActiveView] = useState("journal")
 
@@ -46,7 +47,10 @@ function App() {
                 {activeView === "journal" && 
                 <div style={styles.viewContainer}>
                     <p style={styles.title}>Daily Journal</p>
-                    <DisplayJournal onJournalData={journalEntries}/> 
+                    <DisplayJournal 
+                        journalParentData={journalEntries}
+                        onJournalUpdated={fetchJournal}
+                    /> 
                 </div>
                 }
                 {activeView === "database" && 

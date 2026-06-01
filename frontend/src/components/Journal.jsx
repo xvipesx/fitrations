@@ -3,7 +3,7 @@ import api from "../api.js"
 import FoodSearch from "./FoodSearch.jsx"
 
 
-function DisplayJournal ({ onJournalData }) {
+function DisplayJournal ({ journalParentData, onJournalUpdated }) {
     // Prepare blank form and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
@@ -37,6 +37,7 @@ function DisplayJournal ({ onJournalData }) {
         const convertedForm = convertedTypes(data)
             try {
                 const response = await api.post('/add_journal_entry', convertedForm)
+                onJournalUpdated()
                 return(response.data.food_uuid)
             }
             catch (error) {
@@ -79,10 +80,10 @@ function DisplayJournal ({ onJournalData }) {
                         Meal:
                         <select name="meal_type" value={formData.meal_type} onChange={updateFormData}>
                             <option value='' disabled={true}>Select meal...</option>
-                            <option value="breakfast">Breakfast</option>
-                            <option value="lunch">Lunch</option>
-                            <option value="dinner">Dinner</option>
-                            <option value="snack">Snack</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Dinner">Dinner</option>
+                            <option value="Snack">Snack</option>
                         </select>
                     </label>
                     <button type="reset" onClick={resetFields}>Reset</button>
@@ -106,7 +107,7 @@ function DisplayJournal ({ onJournalData }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {onJournalData.map((entry) => (
+                    {journalParentData.map((entry) => (
                         <tr key={entry.JOURNAL_UUID}>
                             <td>{entry.DATE}</td>
                             <td>{entry.MEAL_TYPE}</td>
