@@ -13,7 +13,7 @@ function FoodSearch({ onFoodSelected }) {
         }
         // Wait 300ms for user to stop typing to avoid flooding the API
         const delay = setTimeout(async () => {
-            const response = await api.get('/foods/search', { params: { query : query }});
+            const response = await api.get('/foods/search', { params: { query : query }}); 
             setResults(response.data)
         }, 300)
 
@@ -21,8 +21,8 @@ function FoodSearch({ onFoodSelected }) {
     }, [query])
 
     const handleSelected = (food) => {
-        setQuery("")
-        setResults([])
+        setQuery("") // Ensure Search bar is reset to blank
+        setResults([]) // Clear on food select
         onFoodSelected(food)
     }
 

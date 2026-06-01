@@ -287,13 +287,21 @@ def query_journal():
         conn.close()
 
 def query_journal_by_date(date):
+    keyed_data = []
     try:
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
-        cursor.execute('''SELECT fj.MEAL_TYPE, fd.NAME, fd.CALORIES, fd.PROTEIN, fd.CARBS, fd.FAT, fd.SERVING_SIZE, fj.PORTION, fj.DATE 
+        cursor.execute('''SELECT fj.JOURNAL_UUID, fj.MEAL_TYPE, fd.NAME, fd.CALORIES, fd.PROTEIN, fd.CARBS, fd.FAT, fd.SERVING_SIZE, fj.PORTION, fj.DATE
                        FROM Food_Journal fj INNER JOIN Food_Database fd ON fj.FOOD_UUID = fd.FOOD_UUID WHERE fj.DATE = (?) ''', (date,))
+        columns = [description[0] for description in cursor.description]
         results = cursor.fetchall()
-        return results
+        rows = len(results)
+        if results is None:
+            print("Error receiving data from journal.") # Error will be produced if items have the wrong FOOD_UUID; correct error handling later
+        else:
+            for i in range(rows):
+                keyed_data.append(dict(zip(columns, results[i])))
+        return keyed_data
     except sqlite3.Error as error:
         print('The following error occurred -', error)
         return None
@@ -400,3 +408,23 @@ def modify_goal(goal_update):
     finally:
         cursor.close()
         conn.close()
+        
+        
+######################## 
+## HELPER TECHNIQUES ##
+########################
+
+def data_normalization(results):
+    for list in range(results):
+        print(list)
+    normalized_data = {
+        'food_uuid': '',
+        'journal_uuid': '',
+        'name': '',
+        'calories': '',
+        'protein': '',
+        'carbs': '',
+        'fat': ',',
+        'serving_size': '',
+        'portion': '',
+    }

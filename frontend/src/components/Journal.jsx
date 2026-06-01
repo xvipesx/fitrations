@@ -4,21 +4,28 @@ import FoodSearch from "./FoodSearch.jsx"
 
 
 function DisplayJournal ({}) {
+    // Prepare array for journal entries display
+    const now = new Date()
+    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+    const[query, setQuery] = useState(date)
+    const[journalEntries, setJournalEntries] = useState([])
+    // Prepare blank form  and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
         meal_type: "",
         portion: "",
     })
     const[selectedFood, setSelectedFood] = useState("")
-
-    // Passed from child search component
+    // Passed from child FoodSearch component to update food name and form UUID
     const handleSelectedFood = (food) => {
         setSelectedFood(food.NAME)
         setFormData({...formData, "food_uuid": food.FOOD_UUID})
     }
+    // Form data updates for portions and meal type
     const updateFormData = (data) => {
         setFormData({...formData, [data.target.name]: data.target.value})
     }
+    // Ensure types are correct before submission to update journal
     const convertedTypes = (data) => {
         return {
         food_uuid: data.food_uuid,
@@ -43,6 +50,21 @@ function DisplayJournal ({}) {
             portion: "",
         });
     }
+
+    useEffect(() => {
+        const fetchJournal = async () => {
+            try {
+                const response = await api.get('/query_journal_by_date', { params: { date : query }});
+                console.log(response.data) 
+                setJournalEntries(response.data)
+            }
+            catch (error) {
+                console.error("Failed to receive journal data:", error)
+            }
+            
+        }
+        fetchJournal()
+    }, [query])
 
     // FoodSearch needs to obtain a food from the database, and store it in a variable here with the UUID so I can pair it with the portions and meal type
     return (
@@ -82,7 +104,35 @@ function DisplayJournal ({}) {
             </div>
             <hr></hr>
             <div style={styles.card}>
-            <label>Journal Entries</label>
+            <label>Today's Journal Entries</label>
+            <table style={styles.table}>
+                <thead style={styles.th}>
+                    <tr>
+                        <th>Date</th>
+                        <th>Meal</th>
+                        <th>Name</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                        <th>Portion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {journalEntries.map((entry) => (
+                        <tr key={entry.JOURNAL_UUID}>
+                            <td>{entry.DATE}</td>
+                            <td>{entry.MEAL_TYPE}</td>
+                            <td>{entry.NAME}</td>
+                            <td>{entry.CALORIES}</td>
+                            <td>{entry.PROTEIN}</td>
+                            <td>{entry.CARBS}</td>
+                            <td>{entry.FAT}</td>
+                            <td>{entry.PORTION}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
             </div>
         </div>
     )
@@ -105,8 +155,17 @@ const styles = {
     },
     table: {
         color: "9e09e9e",
-        fontSize: "1.0rem",
-        border: "2px",
+        fontSize: "0.8rem",
+        border: "2px solid",
+        padding: "30px",
+        width: "100%",
+    },
+    th: {
+        color: "#097b72",
+        fontSize: "0.9rem",
+        border: "2px solid",
+        padding: "30px",
+        width: "100%",
     },
     container: { 
         alignItems: "center",

@@ -1,4 +1,8 @@
 ## [0.0.0] - 2026-05-23
+- Established daily pull to populate journal entries
+- Changed formatting styles in Journal Component
+- Modifications to journal date query function and inclusion of possible helper function for consistency
+## [0.0.0] - 2026-05-23
 - Completed addition of food journal routers and modified router handling of UUIDs to distinguish the journal UUID from database UUID.
 - Updated database SQL statement to ensure column consistency
 - Added food journal database management functions
