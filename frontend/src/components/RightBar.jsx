@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
 import api from "../api.js"
 
-function RightBar() {
+function RightBar( {updatedIntake}) {
     const [calorieGoal, setCalorieGoal] = useState(0)
     const [proteinGoal, setProteinGoal] = useState(0)
     const [carbGoal, setCarbsGoal] = useState(0)
     const [fatGoal, setFatGoal] = useState(0)
+
 
     const fetchDailyGoal = async () => {
         try {
@@ -19,11 +20,14 @@ function RightBar() {
             console.error("Failed to obtain daily goal information", error);
         }
     }
-
-    const caloriesRemaining = calorieGoal - 100
-    const proteinRemaining = proteinGoal - 0
-    const carbsRemaining = carbGoal - 0
-    const fatRemaining = fatGoal - 0
+    /* updatedIntake values are obtained through journal updates provided by the primary app and a utility calculator.
+    In order to keep a single API call, data is already handled at the app level. The updated journal happens via fetchJournal
+    and the array is sent to journalTotals. Primary app then passes the below values down to the RightBar via updatedIntake.
+    */ 
+    const caloriesRemaining = calorieGoal - updatedIntake.calories
+    const proteinRemaining = proteinGoal - updatedIntake.protein
+    const carbsRemaining = carbGoal - updatedIntake.carbs
+    const fatRemaining = fatGoal - updatedIntake.fat
 
     useEffect(() => {
         fetchDailyGoal()

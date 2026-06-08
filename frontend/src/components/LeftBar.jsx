@@ -8,7 +8,7 @@ const navItems = [
     { id: "summary", label: "Summary" },
 ]
 
-function SideBar({ onNavigate }) {
+function LeftBar({ onNavigate }) {
     const [active, setActive] = useState("journal")
 
     function handleClick(id) {
@@ -70,4 +70,4 @@ const styles = {
     },
 }
 
-export default SideBar
+export default LeftBar
