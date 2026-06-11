@@ -8,6 +8,7 @@ import RightBar from "./components/RightBar"
 import DisplayJournal from "./components/Journal"
 import DisplayCalculator from "./components/Calculator"
 import calcJournalTotals from "./utils/journalTotals.js"
+import DatabaseManagement from "./components/Database.jsx"
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
                 {activeView === "database" && 
                 <div style={styles.viewContainer}>
                     <p style={styles.title}>Database Management</p>
+                    <DatabaseManagement />
                 </div>
                 }
                 {activeView === "calculator" && 
