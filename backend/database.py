@@ -236,8 +236,7 @@ def modify_food(id, food):
         conn = sqlite3.connect('fitrations.db')
         cursor = conn.cursor()
         cursor.execute('''UPDATE Food_Database 
-            SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?, SERVING_SIZE = ?,
-            WHERE FOOD_UUID = ?''',
+            SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?, SERVING_SIZE = ? WHERE FOOD_UUID = (?)''',
             (food.name, food.calories, food.protein, food.carbs, food.fat, food.serving_size, id))
         conn.commit()
         if cursor.rowcount == 0:
