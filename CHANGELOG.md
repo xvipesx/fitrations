@@ -1,3 +1,7 @@
+## [0.0.0] - 2026-06-11
+- Database management functions to add, delete, or modify items.
+- Bug fixes
+- Inclusion of daily intake calculations for accurate daily tracking against goals.
 ## [0.0.0] - 2026-05-23
 - Established daily pull to populate journal entries
 - Changed formatting styles in Journal Component
