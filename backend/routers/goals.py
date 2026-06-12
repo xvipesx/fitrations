@@ -15,7 +15,7 @@ def obtain_goal():
     result = database.retrieve_goal()
     return result
 
-@router.post("/modify_goal")
+@router.put("/modify_goal")
 def modify_goal(goal: Goal):
     result = database.modify_goal(goal)
     return result
