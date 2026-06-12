@@ -1,4 +1,7 @@
 ## [0.0.0] - 2026-06-11
+- Began migration from inline styles to dedicated CSS files.
+- UI updates
+## [0.0.0] - 2026-06-11
 - Database management functions to add, delete, or modify items.
 - Bug fixes
 - Inclusion of daily intake calculations for accurate daily tracking against goals.
