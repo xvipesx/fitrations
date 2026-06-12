@@ -1,0 +1,7 @@
+.container-default {
+    background-color: #36363642;
+    padding: 6px 15px;
+    border-radius: 24px;
+    justify-content: center;
+    align-content: center;
+}

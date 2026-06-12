@@ -1,0 +1,84 @@
+.button-add {
+  padding: 8px 24px;
+  color: #00b3b3;
+  border: 0;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 150ms ease-in-out;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  border-radius: 10px;
+  background-color: #111111;
+  background-image: radial-gradient(76% 151% at 52% -52%, rgba(255, 255, 255, 0.23) 0%, transparent 100%);
+}
+
+.button-add:hover {
+  filter: brightness(1.1);
+}
+
+.button-add:active {
+  transform: scale(.95);
+}
+
+.button-update {
+  padding: 8px 24px;
+  color: #008CBA;
+  border: 0;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 150ms ease-in-out;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  border-radius: 10px;
+  background-color: #111111;
+  background-image: radial-gradient(76% 151% at 52% -52%, rgba(255, 255, 255, 0.23) 0%, transparent 100%);
+}
+
+.button-update:hover {
+  filter: brightness(1.1);
+}
+
+.button-update:active {
+  transform: scale(.95);
+}
+
+.button-delete {
+  padding: 8px 24px;
+  color: #f44336;
+  border: 0;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 150ms ease-in-out;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  border-radius: 10px;
+  background-color: #111111;
+  background-image: radial-gradient(76% 151% at 52% -52%, rgba(255, 255, 255, 0.23) 0%, transparent 100%);
+}
+
+.button-delete:hover {
+  filter: brightness(1.1);
+}
+
+.button-delete:active {
+  transform: scale(.95);
+}
+
+.button-reset {
+  padding: 8px 24px;
+  color: #b3b3b3;
+  border: 0;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 150ms ease-in-out;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.9) 0px 0px 0px 1px;
+  border-radius: 10px;
+  background-color: #111111;
+  background-image: radial-gradient(76% 151% at 52% -52%, rgba(255, 255, 255, 0.23) 0%, transparent 100%);
+}
+
+.button-reset:hover {
+  filter: brightness(1.1);
+}
+
+.button-reset:active {
+  transform: scale(.95);
+}
+

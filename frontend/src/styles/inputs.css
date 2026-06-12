@@ -1,0 +1,37 @@
+.if-liquid {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  width: 100%;
+  font-size: 14px;
+  color: #b8b6d4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.if-liquid input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  background: #1a1a22;
+  border: 1px solid #2a2a36;
+  border-radius: 8px;
+  color: #f0eeff;
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  outline: none;
+  background-image: linear-gradient(90deg, #12bbad, #12bbad), linear-gradient(0deg, #12bbad, #12bbad), linear-gradient(90deg, #12bbad, #12bbad), linear-gradient(0deg, #12bbad, #12bbad);
+  background-repeat: no-repeat;
+  background-size: 0 2px, 2px 0, 0 2px, 2px 0;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  transition: background-size 0.35s linear, border-color 0.2s;
+}
+.if-liquid input::placeholder {
+  color: #b8b6d4;
+}
+.if-liquid input:focus {
+  border-color: transparent;
+  background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+  transition-delay: 0s, 0.35s, 0.7s, 1.05s;
+  transition-duration: 0.35s;
+}

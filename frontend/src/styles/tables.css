@@ -1,0 +1,15 @@
+.table {
+    background-color: black;
+    font-size: 14px;
+    border: 1px solid #2a2a36;
+    border-radius: 8px;
+    padding: 30px;
+    width: 100%;
+}
+.table-header {
+    color: #097b72;
+    font-size: 16px;
+    border: 1px solid #2a2a36;
+    padding: 30px;
+    width: 100%;
+}
