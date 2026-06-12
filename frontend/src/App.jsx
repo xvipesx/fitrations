@@ -9,6 +9,7 @@ import DisplayJournal from "./components/Journal"
 import DisplayCalculator from "./components/Calculator"
 import calcJournalTotals from "./utils/journalTotals.js"
 import DatabaseManagement from "./components/Database.jsx"
+import SetGoals from "./components/Goals.jsx"
 
 
 function App() {
@@ -76,6 +77,7 @@ function App() {
                 {activeView === "goals" && 
                 <div style={styles.viewContainer}>
                     <p style={styles.title}>Goals</p>
+                    <SetGoals />
                 </div>
                 }
                 {activeView === "summary" && 
