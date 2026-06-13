@@ -82,7 +82,7 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                     <br/>
                     <label>
                         Meal:
-                        <select name="meal_type" value={formData.meal_type} onChange={updateFormData}>
+                        <select name="meal_type" value={formData.meal_type} onChange={updateFormData} required>
                             <option value='' disabled={true}>Select meal...</option>
                             <option value="Breakfast">Breakfast</option>
                             <option value="Lunch">Lunch</option>
@@ -91,36 +91,28 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                         </select>
                     </label>
                     <br/>
+                    <br/>
                     <button type="submit" className="button-add">Add</button>
                     <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>
                 </form>
+                <br/>
             </div>
             <hr></hr>
             <div className="container-default">
                 <label>Today's Journal Entries</label>
                 <table className="table">
-                    <thead className="table-header">
+                    <thead className="tr">
                         <tr>
-                            <th>Date</th>
                             <th>Meal</th>
                             <th>Name</th>
-                            <th>Calories</th>
-                            <th>Protein</th>
-                            <th>Carbs</th>
-                            <th>Fat</th>
                             <th>Portion</th>
                         </tr>
                     </thead>
                     <tbody>
                         {journalParentData.map((entry) => (
                             <tr key={entry.JOURNAL_UUID}>
-                                <td>{entry.DATE}</td>
                                 <td>{entry.MEAL_TYPE}</td>
                                 <td>{entry.NAME}</td>
-                                <td>{entry.CALORIES}</td>
-                                <td>{entry.PROTEIN}</td>
-                                <td>{entry.CARBS}</td>
-                                <td>{entry.FAT}</td>
                                 <td>{entry.PORTION}</td>
                             </tr>
                         ))}

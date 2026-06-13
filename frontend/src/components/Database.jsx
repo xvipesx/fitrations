@@ -1,7 +1,6 @@
 import { useState } from "react"
 
 // Local imports
-import './DatabaseManagement.css'
 import api from "../api.js"
 import FoodSearch from "./FoodSearch.jsx"
 
@@ -193,6 +192,7 @@ function DatabaseManagement() {
                     <button type='button' className="button-delete" onClick={() => handleDBDelete(dbForm.food_uuid)}>Delete</button>
                     <button type='reset' className="button-reset" onClick={resetForm}>Reset</button>
                 </form>
+            <br/>
             <hr></hr>
                 <form>
                     <br/>

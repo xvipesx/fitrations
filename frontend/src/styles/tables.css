@@ -1,15 +1,52 @@
+/* Table styling for the journal display on Daily Journal */
+
 .table {
-    background-color: black;
-    font-size: 14px;
-    border: 1px solid #2a2a36;
-    border-radius: 8px;
-    padding: 30px;
-    width: 100%;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px; /* space between rows */
+  font-size: 14px;
+  color: #f0eeff;
 }
-.table-header {
-    color: #097b72;
-    font-size: 16px;
-    border: 1px solid #2a2a36;
-    padding: 30px;
-    width: 100%;
+
+/* Ensure padding matches for headers and cells for alignment */
+.table th,
+.table td {
+  padding: 14px;
+  text-align: left;
+}
+
+/* Header */
+.table thead th {
+  text-align: left;
+  color: #b8b6d4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* Style the table rows like input fields elsewhere */
+.table tbody tr {
+  background: #1a1a22;
+  border: 1px solid #2a2a36;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+
+  background-image:
+    linear-gradient(90deg, #12bbad, #12bbad),
+    linear-gradient(0deg, #12bbad, #12bbad),
+    linear-gradient(90deg, #12bbad, #12bbad),
+    linear-gradient(0deg, #12bbad, #12bbad);
+    
+  background-repeat: no-repeat;
+  background-size: 0 2px, 2px 0, 0 2px, 2px 0;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+
+  transition: background-size 0.35s linear, transform 0.15s ease;
+}
+
+/* Hover actions */
+.table tbody tr:hover {
+  background-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+  transform: translateY(-1px);
 }
