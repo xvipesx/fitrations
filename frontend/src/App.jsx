@@ -48,12 +48,12 @@ function App() {
     const [activeView, setActiveView] = useState("journal")
 
     return (
-        <div style={styles.shell}>
+        <div className="container-appshell">
             <LeftBar onNavigate={setActiveView} />
-            <main style={styles.main}>
+            <main className="container-appmain">
                 {activeView === "journal" && 
-                <div style={styles.viewContainer}>
-                    <p style={styles.title}>Daily Journal</p>
+                <div className="container-appview">
+                    <h2>Daily Journal</h2>
                     <DisplayJournal 
                         // Journal query response sent down to Journal.jsx
                         journalParentData={journalEntries}
@@ -63,26 +63,26 @@ function App() {
                 </div>
                 }
                 {activeView === "database" && 
-                <div style={styles.viewContainer}>
-                    <p style={styles.title}>Database Management</p>
+                <div className="container-appview">
+                    <h2>Database Management</h2>
                     <DatabaseManagement />
                 </div>
                 }
                 {activeView === "calculator" && 
-                <div style={styles.viewContainer}>
-                    <p style={styles.title}>BMR Calculator</p>
+                <div className="container-appview">
+                    <h2>BMR Calculator</h2>
                     <DisplayCalculator />
                 </div>
                 }
                 {activeView === "goals" && 
-                <div style={styles.viewContainer}>
-                    <p style={styles.title}>Goals</p>
+                <div className="container-appview">
+                    <h2>Goal Management</h2>
                     <SetGoals />
                 </div>
                 }
                 {activeView === "summary" && 
-                <div style={styles.viewContainer}>
-                    <p style={styles.title}>Summary</p>
+                <div className="container-appview">
+                    <h2>Summary</h2>
                 </div>
                 }
             </main>
@@ -90,31 +90,6 @@ function App() {
             />
         </div>
     )
-}
-
-const styles = {
-    viewContainer: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "24px",
-    },
-    shell: {
-        display: "flex",
-        height: "100vh",
-        backgroundColor: "#100f0f",
-        color: "#e0e0e0",
-    },
-    main: {
-        flex: 1,
-        padding: "30px",
-        overflowY: "auto",
-    },
-    title: {
-        color: "#097b72",
-        fontSize: "1.5rem",
-        fontWeight: "bold",
-        margin: "0 0 4px 0",
-    }
 }
 
 export default App
