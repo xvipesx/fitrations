@@ -59,6 +59,10 @@ function App() {
                         journalParentData={journalEntries}
                         // Update Journal.jsx dynamically when new submissions are added
                         onJournalUpdated={fetchJournal}
+                        // Update Journal.jsx dynamically when a submission is deleted
+                        onJournalDelete={fetchJournal}
+                        // Clear the entire journal table
+                        onJournalClear={fetchJournal}
                     /> 
                 </div>
                 }

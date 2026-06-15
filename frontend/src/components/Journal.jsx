@@ -3,14 +3,17 @@ import api from "../api.js"
 import FoodSearch from "./FoodSearch.jsx"
 
 
-function DisplayJournal ({ journalParentData, onJournalUpdated }) {
+function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete, onJournalClear }) {
     // Prepare blank form and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
         meal_type: "",
         portion: "",
     })
+    // Food selection variable from FoodSearch
     const[selectedFood, setSelectedFood] = useState("")
+    // Selected JOURNAL_UUID from the Journal table used for deletion within the daily rows only
+    const[selectedRow, setSelectedRow] = useState(null)
 
     // Passed from child FoodSearch component to update food name and form UUID
     const handleSelectedFood = (food) => {
@@ -44,6 +47,35 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                 console.error("Failed to post journal entry:", error)
             }
         }
+
+    // Submit JOURNAL_UUID for removal from the day's journal
+    const handleDelete = async (id) => {
+        try {
+            const response = await api.delete('/delete_journal_entry', { params: { journal_id : id }})
+            onJournalDelete()
+            return(response)
+        }
+        catch (error) {
+            console.error("Failed to delete journal entry:", error)
+        }
+    }
+
+    // Submit request to clear the entire journal. This isn't just for the day, but the entire table in the database.
+    const handleClear = async () => {
+        try {
+            const response = await api.delete('/clear_journal')
+            onJournalClear()
+            return(response)
+        }
+        catch (error) {
+            console.error("Failed to delete journal entry:", error)
+        }
+    }
+
+    const handleClick = (uuid) => {
+        setSelectedRow(uuid)
+        console.log(selectedRow)
+    }
 
     // Journal submission reset    
     const resetFields = () => {
@@ -95,9 +127,10 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                     <button type="submit" className="button-add">Add</button>
                     <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>
                 </form>
-                <br/>
             </div>
-            <hr></hr>
+            <br/>
+            <hr/>
+            <br/>
             <div className="container-default">
                 <label>Today's Journal Entries</label>
                 <table className="table">
@@ -110,7 +143,7 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                     </thead>
                     <tbody>
                         {journalParentData.map((entry) => (
-                            <tr key={entry.JOURNAL_UUID}>
+                            <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
                                 <td>{entry.MEAL_TYPE}</td>
                                 <td>{entry.NAME}</td>
                                 <td>{entry.PORTION}</td>
@@ -118,6 +151,13 @@ function DisplayJournal ({ journalParentData, onJournalUpdated }) {
                         ))}
                     </tbody>
                 </table>
+                <br/>
+                <button type="button" className="button-reset" onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
+            </div>
+            <hr/>
+            <br/>
+            <div className="container-default">
+                <button type="button" className="button-delete" onClick={() => handleClear()}>Clear Journal</button>
             </div>
         </div>
     )
