@@ -266,6 +266,20 @@ def search_foods(query):
         cursor.close()
         conn.close()
 
+def clear_db():
+    try:
+        conn = sqlite3.connect('fitrations.db')
+        cursor = conn.cursor()
+        cursor.execute('''DELETE FROM Food_Database''')
+        conn.commit()
+        return None
+    except sqlite3.Error as error:
+        print("The following error occurred -", error)
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
 ######################## 
 ## JOURNAL TECHNIQUES ##
 ########################

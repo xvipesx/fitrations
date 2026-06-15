@@ -89,6 +89,17 @@ function DatabaseManagement() {
             console.error('Failed to submit entry to database:', error)
         }
     }
+    // Delete items from the database by providing the food_uuid obtained by FoodSearch 
+    const handleDBClear = async () => {
+        try {
+            // Template literal to pass food_uuid to API
+            const response = await api.delete('/clear_foods')
+            resetForm()
+    }
+        catch (error) {
+            console.error('Failed to clear the entire food database:', error)
+        }
+    }
 
     /* When selecting foods already in the database, populate dbForm with all the data required and pass 
     the new state to the form for modification. UUID is included to modify specific entries. */

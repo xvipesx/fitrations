@@ -25,6 +25,11 @@ def add_food(food: FoodItem):
         raise HTTPException(status_code=404, detail="Unable to add the food item into the database.")
     return result
 
+@router.delete("/clear_foods")
+def delete_all_food():
+    result = database.clear_db()
+    return result
+
 # APIs below run based on a provided UUID that matches the FOOD_UUID in the database. 
 
 @router.get("/foods/{id}")
