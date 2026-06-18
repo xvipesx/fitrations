@@ -1,2 +1,12 @@
 **/__pycache__
 fitrations.db
+backend/venv/
+frontend/node_modules/
+requirements.txt
+
+# Build output
+dist/
+build/
+
+# Environment files
+.env
