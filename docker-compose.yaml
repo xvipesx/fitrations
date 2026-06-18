@@ -1,0 +1,15 @@
+services:
+  backend:
+    build: ./backend
+    expose: 
+      - "8000"
+    volumes:
+      - ./backend/data:app/data
+    restart: unless-stopped
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depend_on:
+      - backend
+    restart: unless-stopped
