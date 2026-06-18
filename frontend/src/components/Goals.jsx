@@ -58,13 +58,14 @@ function SetGoals () {
     }
 
     return (
-        <div style={styles.container}>
+        <div className="container-default">
                 <form onSubmit={(event) => {
                     event.preventDefault()
                 }}>
-                <label>Calorie Goal: 
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Calorie Goal</span>
                     <input
-                        style={styles.input} 
+                        className="input" 
                         type="text"
                         name="calorie_goal"
                         value={goalForm.calorie_goal}
@@ -72,9 +73,10 @@ function SetGoals () {
                         required
                     />
                 </label>
-                <label>Protein Goal: 
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Protein Goal</span>
                     <input
-                        style={styles.input} 
+                        className="input"
                         type="text"
                         name="protein_goal"
                         value={goalForm.protein_goal}
@@ -82,9 +84,10 @@ function SetGoals () {
                         required
                     />
                 </label>
-                <label>Carb Goal: 
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Carb Goal</span>
                     <input
-                        style={styles.input} 
+                        className="input"
                         type="text"
                         name="carbs_goal"
                         value={goalForm.carbs_goal}
@@ -92,9 +95,10 @@ function SetGoals () {
                         required
                     />
                 </label>
-                <label>Fat Goal:
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Fat Goal</span>
                     <input 
-                        style={styles.input}
+                        className="input"
                         type="text"
                         name="fat_goal"
                         value={goalForm.fat_goal}
@@ -102,8 +106,9 @@ function SetGoals () {
                         required
                     />
                 </label>
-                <button type='button' onClick={() => handleGoalModify(goalForm)}>Set</button>
-                <button type='reset' onClick={resetForm}>Reset</button>
+                <br/>
+                <button type='button' className="button-add" onClick={() => handleGoalModify(goalForm)}>Set</button>
+                <button type='reset' className="button-reset" onClick={resetForm}>Reset</button>
             </form>
 
 

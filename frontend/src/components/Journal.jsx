@@ -131,34 +131,34 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
             <br/>
             <hr/>
             <br/>
-            <div className="container-default">
-                <label>Today's Journal Entries</label>
-                <table className="table">
-                    <thead className="tr">
-                        <tr>
-                            <th>Meal</th>
-                            <th>Name</th>
-                            <th>Portion</th>
+            <label>Today's Journal Entries</label>
+            <table className="table">
+                <thead className="tr">
+                    <tr>
+                        <th>Meal</th>
+                        <th>Name</th>
+                        <th>Portion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {journalParentData.map((entry) => (
+                        <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
+                            <td>{entry.MEAL_TYPE}</td>
+                            <td>{entry.NAME}</td>
+                            <td>{entry.PORTION}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {journalParentData.map((entry) => (
-                            <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
-                                <td>{entry.MEAL_TYPE}</td>
-                                <td>{entry.NAME}</td>
-                                <td>{entry.PORTION}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-                <br/>
-                <button type="button" className="button-reset" onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
-            </div>
+                    ))}
+                </tbody>
+            </table>
+            <br/>
+            <button type="button" className="button-reset" disabled={!selectedRow} onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
+            <br/>
+            <br/>
             <hr/>
             <br/>
-            <div className="container-default">
-                <button type="button" className="button-delete" onClick={() => handleClear()}>Clear Journal</button>
-            </div>
+            <p><b>DANGEROUS!</b> This will clear your entire journal.</p>
+            <br/>
+            <button type="button" className="button-delete" onClick={() => handleClear()}>Clear Journal</button>
         </div>
     )
 }
