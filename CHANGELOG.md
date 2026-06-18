@@ -1,3 +1,10 @@
+## [0.0.0] - 2026-06-17
+- Established Dockerfiles and compose file to provide containerization capability.
+## [0.0.0] - 2026-06-15
+- Established database clearing capability
+- Management of individual journal entries on selection and clearing of entire journal
+## [0.0.0] - 2026-06-13
+- Code cleanup and various UI updates
 ## [0.0.0] - 2026-06-11
 - Began migration from inline styles to dedicated CSS files.
 - UI updates
