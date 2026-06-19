@@ -2,7 +2,8 @@
 fitrations.db
 backend/venv/
 frontend/node_modules/
-requirements.txt
+# Used in local dev work only
+docker-compose.dev.yaml
 
 # Build output
 dist/
