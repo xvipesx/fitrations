@@ -3,6 +3,7 @@ fitrations.db
 backend/venv/
 frontend/node_modules/
 requirements.txt
+docker-compose-build.yaml
 
 # Build output
 dist/
