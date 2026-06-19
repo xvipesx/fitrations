@@ -1,6 +1,6 @@
 .button-add {
   padding: 8px 24px;
-  color: #00b3b3;
+  color: #097B72;
   border: 0;
   font-weight: bold;
   font-size: 16px;
@@ -21,7 +21,7 @@
 
 .button-update {
   padding: 8px 24px;
-  color: #008CBA;
+  color: #097B72;
   border: 0;
   font-weight: bold;
   font-size: 16px;
@@ -42,7 +42,7 @@
 
 .button-delete {
   padding: 8px 24px;
-  color: #f44336;
+  color: #E07A5F;
   border: 0;
   font-weight: bold;
   font-size: 16px;

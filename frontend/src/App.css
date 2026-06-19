@@ -1,18 +1,23 @@
 .container-appview {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 10px;
 }
 
 .container-appshell {
     display: flex;
     height: 100svh;
-    background-color: #100f0f;
-    color: #e0e0e0;
+    background-color: #0F1416;
+    color: #ccd9d1;
 }
 
 .container-appmain {
-    flex: 1;
-    padding: 30px;
+    flex: 8;
+    padding: 15px;
     overflow-y: auto;
+}
+
+.hint {
+    color: #526A75;
+    font-size: 0.8rem;
 }

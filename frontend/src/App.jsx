@@ -53,7 +53,6 @@ function App() {
             <main className="container-appmain">
                 {activeView === "journal" && 
                 <div className="container-appview">
-                    <h2>Daily Journal</h2>
                     <DisplayJournal 
                         // Journal query response sent down to Journal.jsx
                         journalParentData={journalEntries}
@@ -68,19 +67,16 @@ function App() {
                 }
                 {activeView === "database" && 
                 <div className="container-appview">
-                    <h2>Database Management</h2>
                     <DatabaseManagement />
                 </div>
                 }
                 {activeView === "calculator" && 
                 <div className="container-appview">
-                    <h2>BMR Calculator</h2>
                     <DisplayCalculator />
                 </div>
                 }
                 {activeView === "goals" && 
                 <div className="container-appview">
-                    <h2>Goal Management</h2>
                     <SetGoals />
                 </div>
                 }

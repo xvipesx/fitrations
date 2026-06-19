@@ -1,5 +1,19 @@
 /* CSS reset to remove browser defaults before defining root styling */
 
+/* 
+Color pallete
+#097B72 - Primary brand color, active states, primary highlights, CTA buttons
+#0F1416 - Primary app background color
+#E07A5F - Accent and alert color - delete and resets, bad stuff
+#81C784 - Muted green for goal success - hurray!
+#182226 - Container BGs
+#202D33 - Card and surface BGs
+#F5F7F8 - Primary text (headings, main data points)
+#94A3B8 - Secondary (sub-headings, timestamps, labels)
+#526A75 - Hint text
+*/
+
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +21,7 @@
 }
 
 :root {
-  --text: #9ca3af;
+  --text: #CCD9D1;
   --text-h: #f3f4f6;
   --bg: #000000;
   --border: #777474;
@@ -65,7 +79,7 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 50px;
   letter-spacing: -1.68px;
   margin: 32px 0;
   @media (max-width: 1024px) {
@@ -74,8 +88,8 @@ h1 {
   }
 }
 h2 {
-  font-size: 30px;
-  color: #097b72;
+  font-size: 28px;
+  color: #F5F7F8;
   font-weight: bold;
   line-height: 118%;
   letter-spacing: -0.24px;
@@ -86,6 +100,7 @@ h2 {
 }
 p {
   margin: 0;
+  color: #F5F7F8
 }
 
 code,

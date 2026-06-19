@@ -89,12 +89,12 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
     // FoodSearch needs to obtain a food from the database, and store it in a variable here with the UUID so I can pair it with the portions and meal type
     return (
         <div className="container-default">
+            <h2>Daily Journal</h2>
             <div>
-                <h3>Database Search</h3>
                 <FoodSearch onFoodSelected={handleSelectedFood} />
                 <br/>
                 {selectedFood && (
-                    <p>Selected: {selectedFood}</p>
+                    <p>Selected Item: {selectedFood}</p>
                 )}
                 <form onSubmit={(event) => {
                     event.preventDefault()
@@ -105,6 +105,7 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
                         <span className="if-liquid-label">Number of Portions</span>
                         <input
                             type="text"
+                            className="input"
                             name="portion" 
                             value={formData.portion}
                             onChange={updateFormData}
@@ -112,9 +113,9 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
                         />
                     </label>
                     <br/>
-                    <label>
-                        Meal:
-                        <select name="meal_type" value={formData.meal_type} onChange={updateFormData} required>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Meal:</span>
+                        <select className="select" name="meal_type" value={formData.meal_type} onChange={updateFormData} required>
                             <option value='' disabled={true}>Select meal...</option>
                             <option value="Breakfast">Breakfast</option>
                             <option value="Lunch">Lunch</option>
@@ -131,28 +132,29 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
             <br/>
             <hr/>
             <br/>
-            <label>Today's Journal Entries</label>
-            <table className="table">
-                <thead className="tr">
-                    <tr>
-                        <th>Meal</th>
-                        <th>Name</th>
-                        <th>Portion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {journalParentData.map((entry) => (
-                        <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
-                            <td>{entry.MEAL_TYPE}</td>
-                            <td>{entry.NAME}</td>
-                            <td>{entry.PORTION}</td>
+            <div className="container-section">
+                <label>Today's Journal Entries</label>
+                <table className="table">
+                    <thead className="tr">
+                        <tr>
+                            <th>Meal</th>
+                            <th>Name</th>
+                            <th>Portion</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {journalParentData.map((entry) => (
+                            <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
+                                <td>{entry.MEAL_TYPE}</td>
+                                <td>{entry.NAME}</td>
+                                <td>{entry.PORTION}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             <br/>
             <button type="button" className="button-reset" disabled={!selectedRow} onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
-            <br/>
+            </div>
             <br/>
             <hr/>
             <br/>

@@ -50,67 +50,70 @@ function DisplayCalculator ({}) {
 
     return (
         <div className="container-default">
-            <form onSubmit={(event) => {
-                event.preventDefault() 
-                handleSubmit(formData)
-                }}>
-            <label className="if-liquid">
-                <span className="if-liquid-label">Weight</span>
-                <input
-                    type="text" 
-                    name="weight"
-                    className="input"
-                    value={formData.weight} 
-                    onChange={updateFormData}
-                    required
-                />
-            </label>
-            <p>
-            <label className="if-liquid">
-                <span className="if-liquid-label">Height</span>
-                <input 
-                    type="text"
-                    name="height"
-                    className="input"
-                    value={formData.height}
-                    onChange={updateFormData}
-                    required
-                />
-            </label>
-            </p>
-            <p>
-            <label className="if-liquid">
-                <span className="if-liquid-label">Age</span>
-                <input 
-                    type="text"
-                    name="age"
-                    className="input"
-                    value={formData.age}
-                    onChange={updateFormData}
-                    required
-                />
-            </label>
-            </p>
-            <label className="if-liquid">
-                <span className="if-liquid-label">What is your sex?</span>
-                <select name="sex" value={formData.sex} onChange={updateFormData}>
-                    <option value='' disabled={true}>Select sex...</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
-            </label>
-            <br/>
-            <p>
-            <button type="submit" className="button-add">Calculate</button>
-            <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>   
-            </p>
-            <br/>
-            <p>
-            {userBMR && (
-                <p>Your baseline BMR is: {userBMR}</p>
-            )}
-            </p>
-            </form>
+            <h2>BMR Calculator</h2>
+            <div className="container-section">
+                <form onSubmit={(event) => {
+                    event.preventDefault() 
+                    handleSubmit(formData)
+                    }}>
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Weight</span>
+                    <input
+                        type="text" 
+                        name="weight"
+                        className="input"
+                        value={formData.weight} 
+                        onChange={updateFormData}
+                        required
+                    />
+                </label>
+                <p>
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Height</span>
+                    <input 
+                        type="text"
+                        name="height"
+                        className="input"
+                        value={formData.height}
+                        onChange={updateFormData}
+                        required
+                    />
+                </label>
+                </p>
+                <p>
+                <label className="if-liquid">
+                    <span className="if-liquid-label">Age</span>
+                    <input 
+                        type="text"
+                        name="age"
+                        className="input"
+                        value={formData.age}
+                        onChange={updateFormData}
+                        required
+                    />
+                </label>
+                </p>
+                <label className="if-liquid">
+                    <span className="if-liquid-label">What is your sex?</span>
+                    <select name="sex" value={formData.sex} onChange={updateFormData}>
+                        <option value='' disabled={true}>Select sex...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </label>
+                <br/>
+                <p>
+                <button type="submit" className="button-add">Calculate</button>
+                <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>   
+                </p>
+                <br/>
+                <p>
+                {userBMR && (
+                    <p>Your baseline BMR is: {userBMR}</p>
+                )}
+                </p>
+                </form>
+            </div>
         </div>
   );
 }

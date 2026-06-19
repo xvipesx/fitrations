@@ -59,6 +59,7 @@ function SetGoals () {
 
     return (
         <div className="container-default">
+            <h2>Goal Setting</h2>
                 <form onSubmit={(event) => {
                     event.preventDefault()
                 }}>

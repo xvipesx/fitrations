@@ -118,16 +118,20 @@ function DatabaseManagement() {
 
     return (
         <div className="container-default">
+            <h2>Database Management</h2>
+            <br/>
+            <p className="hint">This section will allow you to modify or add to your food database.</p>
             <div>
-                <h3>Database Search</h3>
+                <br/>
                 <FoodSearch onFoodSelected={handleSelectedFood}/>
                 <br/>
                 {selectedFood && (
-                    <p>Selected Food Item: {selectedFood}</p>
+                    <p><i>Selected Item: {selectedFood}</i></p>
                 )}
-                <br/>
             </div>
-            <hr></hr>
+            <br/>
+            <hr/>
+            <br/>
             <div>
                 <form onSubmit={(event) => {
                     event.preventDefault()
