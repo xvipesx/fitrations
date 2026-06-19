@@ -8,7 +8,7 @@ docker-compose.dev.yaml
 # Build output
 dist/
 build/
+data/
 
-# Environment files
+# Environment file for development
 .env.development
-.env.production
