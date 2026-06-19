@@ -1,6 +1,6 @@
-#Python 3.12.0
-#Version 0.0.0
+# Python 3.12.0
 
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,19 +15,21 @@ database.create_journal_table()
 database.create_goals_table()
 
 app = FastAPI(
-    title="FitRation Nutrition Tracking API",
+    title="FitRations Nutrition Tracking API",
     description="API to interact with program SQL database",
     version="0.0.0",
     docs_url="/docs",
 )
 
-origin = "http://127.0.0.1:5173"
+# Only allow origins established in the user's docker-compose
+raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 
 
-# Adjust later for security
+# Adjusted to set only approved origins above and established by the user
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -41,4 +43,4 @@ app.include_router(calc.router)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True) # Set to 127.0.0.1 to avoid listening on a container port
