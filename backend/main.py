@@ -21,7 +21,7 @@ app = FastAPI(
     docs_url="/docs",
 )
 
-# Only allow origins established in the user's docker-compose
+# Only allow origins established in the user's docker-compose, 5173 is used during dev work only and is not used if an explicit environment available is set in docker-compose.yaml
 raw_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
 origins = [origin.strip() for origin in raw_origins.split(",") if origin.strip()]
 
