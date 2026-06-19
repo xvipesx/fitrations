@@ -7,7 +7,7 @@ moderately_active = 1.55
 very_active	= 1.725
 super_active = 1.9
 
-# BMR forumlas found use kg and cm explicitly.
+# BMR forumlas found use kg and cm explicitly. Below functions adjust to pounds
 
 def pounds_to_kg(pounds):
     return pounds * 0.45359237
@@ -26,7 +26,7 @@ def calc_bmr(data):
     else:
         BMR = 0
         print('Incorrect sex given.')
-    return BMR
+    return round(BMR, 0)
 
 
 
