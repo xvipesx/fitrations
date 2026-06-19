@@ -1,5 +1,6 @@
 services:
   fitrations:
+    build: .
     image: ghcr.io/xvipesx/fitrations:latest
     environment:
       - DB_PATH=/app/data/fitrations.db

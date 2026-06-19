@@ -1,10 +1,12 @@
 import sqlite3
 import uuid
 from datetime import datetime
+import os
 
 
 now = datetime.now()
-formatted_date = now.strftime("%Y-%m-%d") # 
+FORMATTED_DATE = now.strftime("%Y-%m-%d")
+DB_PATH = os.environ.get("DB_PATH", "fitrations.db")
 
 ###################################### 
 ## DATABASE CREATION AND VALIDATION ##
@@ -12,7 +14,7 @@ formatted_date = now.strftime("%Y-%m-%d") #
 
 def create_database():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Database initialized.")
     except sqlite3.Error as error:
@@ -23,7 +25,7 @@ def create_database():
 
 def create_database_table():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for food database table...")
 
@@ -72,7 +74,7 @@ def create_database_table():
         
 def create_journal_table():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for food journal table...")
 
@@ -119,7 +121,7 @@ def create_journal_table():
 
 def create_goals_table():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for the goals table...")
 
@@ -170,7 +172,7 @@ def create_goals_table():
 # Allow absolute query of all food items in the database
 def query_all_foods():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         statement = '''SELECT * FROM Food_Database'''
         cursor.execute(statement)
@@ -186,7 +188,7 @@ def query_all_foods():
 def add_food(food):
     new_uuid = str(uuid.uuid4())
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO Food_Database (FOOD_UUID, NAME, CALORIES, PROTEIN, CARBS, FAT, SERVING_SIZE)
             VALUES (?, ?, ?, ?, ?, ?, ?)''',
@@ -202,7 +204,7 @@ def add_food(food):
 
 def return_food(id):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
@@ -217,7 +219,7 @@ def return_food(id):
 
 def delete_food(id):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
@@ -233,7 +235,7 @@ def delete_food(id):
 
 def modify_food(id, food):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''UPDATE Food_Database 
             SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?, SERVING_SIZE = ? WHERE FOOD_UUID = (?)''',
@@ -251,7 +253,7 @@ def modify_food(id, food):
 
 def search_foods(query):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Food_Database 
             WHERE NAME LIKE (?)''', (f'%{query}%',))
@@ -268,7 +270,7 @@ def search_foods(query):
 
 def clear_db():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Database''')
         conn.commit()
@@ -286,7 +288,7 @@ def clear_db():
 
 def query_journal():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         statement = '''SELECT * FROM Food_Journal'''
         cursor.execute(statement)
@@ -302,7 +304,7 @@ def query_journal():
 def query_journal_by_date(date):
     keyed_data = []
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT fj.JOURNAL_UUID, fj.MEAL_TYPE, fd.NAME, fd.CALORIES, fd.PROTEIN, fd.CARBS, fd.FAT, fd.SERVING_SIZE, fj.PORTION, fj.DATE
                        FROM Food_Journal fj INNER JOIN Food_Database fd ON fj.FOOD_UUID = fd.FOOD_UUID WHERE fj.DATE = (?) ''', (date,))
@@ -326,12 +328,12 @@ def query_journal_by_date(date):
 def add_journal_entry(data):
     journal_uuid = str(uuid.uuid4()) # Journal entry receives unique UUID separate from food_uuid in Food_Database
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         # Journal intentionally uses FOOD_UUID from Food_Database to avoid data duplication in two tables.
         cursor.execute('''INSERT INTO Food_Journal (JOURNAL_UUID, FOOD_UUID, MEAL_TYPE, PORTION, DATE) 
                        VALUES (?, ?, ?, ?, ?)''', 
-                       (journal_uuid, data.food_uuid, data.meal_type, data.portion, formatted_date))
+                       (journal_uuid, data.food_uuid, data.meal_type, data.portion, FORMATTED_DATE))
         conn.commit()
         return journal_uuid
     except sqlite3.Error as error:
@@ -343,7 +345,7 @@ def add_journal_entry(data):
 
 def delete_journal_entry(id):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Journal WHERE JOURNAL_UUID = (?) ''', (id,)) # Uses journal_uuid
         conn.commit()
@@ -357,7 +359,7 @@ def delete_journal_entry(id):
 
 def clear_journal():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Journal''')
         conn.commit()
@@ -375,7 +377,7 @@ def clear_journal():
 
 def set_initial_goal(goal):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO Goals (CALORIES, PROTEIN, CARBS, FAT)
             VALUES (?, ?, ?, ?)''',
@@ -391,7 +393,7 @@ def set_initial_goal(goal):
 
 def retrieve_goal():
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Goals''')
         columns = [description[0] for description in cursor.description]
@@ -409,7 +411,7 @@ def retrieve_goal():
 
 def modify_goal(goal_update):
     try:
-        conn = sqlite3.connect('fitrations.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''UPDATE Goals SET CALORIES=?, PROTEIN=?, CARBS=?, FAT=? WHERE ROWID = 1''',
             (goal_update.calorie_goal, goal_update.protein_goal, goal_update.carbs_goal, goal_update.fat_goal))

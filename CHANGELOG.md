@@ -1,3 +1,9 @@
+## [0.0.0] - 2026-06-19
+- Various UI updates
+- Database config changes to support containerization
+- Establish supervisord config for management of multiple internal container services
+## [0.0.0] - 2026-06-18
+- Various UI updates
 ## [0.0.0] - 2026-06-17
 - Established Dockerfiles and compose file to provide containerization capability.
 ## [0.0.0] - 2026-06-15
