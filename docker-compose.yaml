@@ -1,10 +1,12 @@
 services:
   fitrations:
-    image: ghcr.io/xvipesx/fitrations:latest
+    image: ghcr.io/xvipesx/fitrations:0.1
     environment:
       - DB_PATH=/app/data/fitrations.db
+      # Seperate allowed origins by comma
+      - ALLOWED_ORIGINS=http://yourdomain.com,http://your-server-ip:8080
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./data:/app/data
     restart: unless-stopped
