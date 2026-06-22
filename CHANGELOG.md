@@ -1,3 +1,12 @@
+## [0.1.0] - 2026-06-22
+- Publish first image and set version 0.1.0.
+## [0.0.0] - 2026-06-22
+- Journal entry date and time are now pulled on journal submissions
+- Environment variable set for user to set their own timezone
+- Add logos and branding
+## [0.0.0] - 2026-06-21
+- Set default goals to 0
+- Removed unnecessary code
 ## [0.0.0] - 2026-06-19
 - Various UI updates
 - Database config changes to support containerization
