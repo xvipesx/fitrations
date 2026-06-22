@@ -2,11 +2,28 @@ import sqlite3
 import uuid
 from datetime import datetime
 import os
+from zoneinfo import ZoneInfo
 
+###################################### 
+##          ENV VARIABLES           ##
+######################################
 
-now = datetime.now()
-FORMATTED_DATE = now.strftime("%Y-%m-%d")
 DB_PATH = os.environ.get("DB_PATH", "fitrations.db")
+TIMEZONE = os.environ.get("TIME_ZONE", "America/New_York")
+
+###################################### 
+##       BASE FUNCTIONALITY         ##
+######################################
+
+# Dedicated function to be called when database needs current DTG
+# Must be called as needed to ensure DTG isn't cached at runtime
+def get_date():
+    set_timezone = ZoneInfo(TIMEZONE)
+    now = datetime.now()
+    # Adjust current date and time based on user preference
+    adjusted_now = now.astimezone(set_timezone)
+    formatted_date = adjusted_now.strftime("%Y-%m-%d")
+    return formatted_date
 
 ###################################### 
 ## DATABASE CREATION AND VALIDATION ##
@@ -133,12 +150,14 @@ def create_goals_table():
         result = cursor.fetchone()[0]
 
         if result < 1:
-            print("No goals table exists. Creating it.")
+            print("No goals table exists. Creating it with default entries.")
             cursor.execute('''CREATE TABLE Goals(
                 CALORIES INTEGER,
                 PROTEIN REAL,
                 CARBS REAL,
                 FAT REAL);''')
+            conn.commit()
+            cursor.execute('''INSERT INTO Goals (CALORIES, PROTEIN, CARBS, FAT) VALUES (0, 0, 0, 0)''')
             conn.commit()
             print("Goals table created successfully.")
         else:
@@ -327,13 +346,14 @@ def query_journal_by_date(date):
 
 def add_journal_entry(data):
     journal_uuid = str(uuid.uuid4()) # Journal entry receives unique UUID separate from food_uuid in Food_Database
+    date = get_date()
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         # Journal intentionally uses FOOD_UUID from Food_Database to avoid data duplication in two tables.
         cursor.execute('''INSERT INTO Food_Journal (JOURNAL_UUID, FOOD_UUID, MEAL_TYPE, PORTION, DATE) 
                        VALUES (?, ?, ?, ?, ?)''', 
-                       (journal_uuid, data.food_uuid, data.meal_type, data.portion, FORMATTED_DATE))
+                       (journal_uuid, data.food_uuid, data.meal_type, data.portion, date))
         conn.commit()
         return journal_uuid
     except sqlite3.Error as error:
@@ -375,22 +395,6 @@ def clear_journal():
 ## GOALS TECHNIQUES ##
 ######################
 
-def set_initial_goal(goal):
-    try:
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        cursor.execute('''INSERT INTO Goals (CALORIES, PROTEIN, CARBS, FAT)
-            VALUES (?, ?, ?, ?)''',
-            (goal.calorie_goal, goal.protein_goal, goal.carbs_goal, goal.fat_goal))
-        conn.commit()
-        print("Initial goal set successfully.")
-    except sqlite3.Error as error:
-        print("The following error occurred -", error)
-        return None
-    finally:
-        cursor.close()
-        conn.close()
-
 def retrieve_goal():
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -423,23 +427,3 @@ def modify_goal(goal_update):
     finally:
         cursor.close()
         conn.close()
-        
-        
-######################## 
-## HELPER TECHNIQUES ##
-########################
-
-def data_normalization(results):
-    for list in range(results):
-        print(list)
-    normalized_data = {
-        'food_uuid': '',
-        'journal_uuid': '',
-        'name': '',
-        'calories': '',
-        'protein': '',
-        'carbs': '',
-        'fat': ',',
-        'serving_size': '',
-        'portion': '',
-    }
