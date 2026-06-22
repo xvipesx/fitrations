@@ -1,6 +1,6 @@
 services:
   fitrations:
-    image: ghcr.io/xvipesx/fitrations:0.1
+    image: ghcr.io/xvipesx/fitrations:0.1.0
     environment:
       - DB_PATH=/app/data/fitrations.db
       - TIME_ZONE=America/New_York

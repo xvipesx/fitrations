@@ -1,4 +1,4 @@
 services:
   fitrations:
     build: .
-    image: ghcr.io/xvipesx/fitrations:0.1
+    image: ghcr.io/xvipesx/fitrations:0.1.0
