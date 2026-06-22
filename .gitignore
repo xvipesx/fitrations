@@ -1,14 +1,17 @@
+# Project files
 **/__pycache__
 fitrations.db
 backend/venv/
 frontend/node_modules/
-# Used in local dev work only
-docker-compose.dev.yaml
 
 # Build output
 dist/
 build/
 data/
 
-# Environment file for development
+# Development files
 .env.development
+docker-compose.dev.yaml
+
+# OS specific files
+.DS_Store
