@@ -10,7 +10,6 @@ import DisplayCalculator from "./components/Calculator"
 import calcJournalTotals from "./utils/journalTotals.js"
 import DatabaseManagement from "./components/Database.jsx"
 import SetGoals from "./components/Goals.jsx"
-import Logo from "./components/Logo.jsx"
 
 
 function App() {
