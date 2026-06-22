@@ -10,6 +10,7 @@ import DisplayCalculator from "./components/Calculator"
 import calcJournalTotals from "./utils/journalTotals.js"
 import DatabaseManagement from "./components/Database.jsx"
 import SetGoals from "./components/Goals.jsx"
+import Logo from "./components/Logo.jsx"
 
 
 function App() {
@@ -78,11 +79,6 @@ function App() {
                 {activeView === "goals" && 
                 <div className="container-appview">
                     <SetGoals />
-                </div>
-                }
-                {activeView === "summary" && 
-                <div className="container-appview">
-                    <h2>Summary</h2>
                 </div>
                 }
             </main>

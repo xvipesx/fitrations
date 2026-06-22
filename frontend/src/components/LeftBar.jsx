@@ -1,12 +1,12 @@
 import { useState } from "react"
 import "../styles/leftbar.css"
+import Logo from "./Logo.jsx"
 
 const navItems = [
     { id: "journal", label: "Journal" },
     { id: "database", label: "Database" },
     { id: "calculator", label: "Calculator" },
     { id: "goals", label: "Goals" },
-    { id: "summary", label: "Summary" },
 ]
 
 function LeftBar({ onNavigate }) {
@@ -19,6 +19,7 @@ function LeftBar({ onNavigate }) {
 
     return (
         <aside className="leftbar-view">
+            <Logo className="leftbar-logo" />
             <div className="leftbar-appname">FitRations</div>
             <nav>
                 {navItems.map((item) => (
