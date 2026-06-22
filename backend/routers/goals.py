@@ -5,11 +5,6 @@ import database
 
 router = APIRouter()
 
-@router.post("/initial_goal")
-def set_goal(goal: Goal):
-    result = database.set_initial_goal(goal)
-    return result
-
 @router.get("/retrieve_goal")
 def obtain_goal():
     result = database.retrieve_goal()
