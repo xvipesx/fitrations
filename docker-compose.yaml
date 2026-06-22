@@ -3,6 +3,7 @@ services:
     image: ghcr.io/xvipesx/fitrations:0.1
     environment:
       - DB_PATH=/app/data/fitrations.db
+      - TIME_ZONE=America/New_York
       # Seperate allowed origins by comma
       - ALLOWED_ORIGINS=http://yourdomain.com,http://your-server-ip:8080
     ports:
