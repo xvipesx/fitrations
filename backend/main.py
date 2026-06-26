@@ -4,15 +4,15 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-import database
+from db import db_setup
 from routers import journal, foods, goals, calc
 
 
 # Database operations to create initial DB if it doesn't exist and verify tables
-database.create_database()
-database.create_database_table()
-database.create_journal_table()
-database.create_goals_table()
+db_setup.create_database()
+db_setup.create_food_database_table()
+db_setup.create_journal_table()
+db_setup.create_goals_table()
 
 app = FastAPI(
     title="FitRations Nutrition Tracking API",
