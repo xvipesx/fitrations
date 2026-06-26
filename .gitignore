@@ -3,6 +3,7 @@
 fitrations.db
 backend/venv/
 frontend/node_modules/
+NOTES.md
 
 # Build output
 dist/
