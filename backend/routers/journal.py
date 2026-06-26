@@ -1,31 +1,31 @@
 from fastapi import APIRouter, HTTPException
 from models import Journal
 
-import database
+from db import journal
 
 router = APIRouter()
 
 @router.get("/query_journal")
 def query_journal():
-    result = database.query_journal()
+    result = journal.query_journal()
     return result
 
 @router.get("/query_journal_by_date")
 def query_journal_by_date(date: str):
-    result = database.query_journal_by_date(date)
+    result = journal.query_journal_by_date(date)
     return result
 
 @router.post("/add_journal_entry")
 def add_journal_entry(data: Journal):
-    result = database.add_journal_entry(data)
+    result = journal.add_journal_entry(data)
     return result
 
 @router.delete("/delete_journal_entry")
 def delete_journal_entry(journal_id: str): # Uses journal_uuid
-    result = database.delete_journal_entry(journal_id)
+    result = journal.delete_journal_entry(journal_id)
     return result
 
 @router.delete("/clear_journal")
 def clear_journal():
-    result = database.clear_journal()
+    result = journal.clear_journal()
     return result
