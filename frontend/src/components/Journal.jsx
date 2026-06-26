@@ -60,18 +60,6 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
         }
     }
 
-    // Submit request to clear the entire journal. This isn't just for the day, but the entire table in the database.
-    const handleClear = async () => {
-        try {
-            const response = await api.delete('/clear_journal')
-            onJournalClear()
-            return(response)
-        }
-        catch (error) {
-            console.error("Failed to delete journal entry:", error)
-        }
-    }
-
     const handleClick = (uuid) => {
         setSelectedRow(uuid)
         console.log(selectedRow)
@@ -155,12 +143,6 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
             <br/>
             <button type="button" className="button-reset" disabled={!selectedRow} onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
             </div>
-            <br/>
-            <hr/>
-            <br/>
-            <p><b>DANGEROUS!</b> This will clear your entire journal.</p>
-            <br/>
-            <button type="button" className="button-delete" onClick={() => handleClear()}>Clear Journal</button>
         </div>
     )
 }

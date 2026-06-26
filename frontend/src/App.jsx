@@ -10,6 +10,7 @@ import DisplayCalculator from "./components/Calculator"
 import calcJournalTotals from "./utils/journalTotals.js"
 import DatabaseManagement from "./components/Database.jsx"
 import SetGoals from "./components/Goals.jsx"
+import DisplaySettings from "./components/Settings.jsx"
 
 
 function App() {
@@ -60,8 +61,6 @@ function App() {
                         onJournalUpdated={fetchJournal}
                         // Update Journal.jsx dynamically when a submission is deleted
                         onJournalDelete={fetchJournal}
-                        // Clear the entire journal table
-                        onJournalClear={fetchJournal}
                     /> 
                 </div>
                 }
@@ -78,6 +77,14 @@ function App() {
                 {activeView === "goals" && 
                 <div className="container-appview">
                     <SetGoals />
+                </div>
+                }
+                {activeView === "settings" && 
+                <div className="container-appview">
+                    <DisplaySettings 
+                        // Clear the entire journal table
+                        onJournalClear={fetchJournal}
+                    />
                 </div>
                 }
             </main>

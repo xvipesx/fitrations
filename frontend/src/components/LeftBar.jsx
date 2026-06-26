@@ -7,6 +7,7 @@ const navItems = [
     { id: "database", label: "Database" },
     { id: "calculator", label: "Calculator" },
     { id: "goals", label: "Goals" },
+    { id: "settings", label: "Settings"},
 ]
 
 function LeftBar({ onNavigate }) {
