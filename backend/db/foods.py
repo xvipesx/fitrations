@@ -1,11 +1,11 @@
 import sqlite3
 import uuid
-import connection
+from .connection import DB_PATH
 
 # Allow absolute query of all food items in the database
 def query_all_foods():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         statement = '''SELECT * FROM Food_Database'''
         cursor.execute(statement)
@@ -21,7 +21,7 @@ def query_all_foods():
 def add_food(food):
     new_uuid = str(uuid.uuid4())
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''INSERT INTO Food_Database (FOOD_UUID, NAME, CALORIES, PROTEIN, CARBS, FAT, SERVING_SIZE)
             VALUES (?, ?, ?, ?, ?, ?, ?)''',
@@ -37,7 +37,7 @@ def add_food(food):
 
 def return_food(id):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
@@ -52,7 +52,7 @@ def return_food(id):
 
 def delete_food(id):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Database WHERE FOOD_UUID = (?)''', (id,))
         conn.commit()
@@ -68,7 +68,7 @@ def delete_food(id):
 
 def modify_food(id, food):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''UPDATE Food_Database 
             SET NAME = ?, CALORIES = ?, PROTEIN = ?, CARBS = ?, FAT = ?, SERVING_SIZE = ? WHERE FOOD_UUID = (?)''',
@@ -86,7 +86,7 @@ def modify_food(id, food):
 
 def search_foods(query):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Food_Database 
             WHERE NAME LIKE (?)''', (f'%{query}%',))
@@ -103,7 +103,7 @@ def search_foods(query):
 
 def clear_db():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Database''')
         conn.commit()

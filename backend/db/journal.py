@@ -1,14 +1,14 @@
 import sqlite3
 import uuid
 
-import connection
+from .connection import DB_PATH
 from utils import datetime_helpers
 
 
 
 def query_journal():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         statement = '''SELECT * FROM Food_Journal'''
         cursor.execute(statement)
@@ -24,7 +24,7 @@ def query_journal():
 def query_journal_by_date(date):
     keyed_data = []
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT fj.JOURNAL_UUID, fj.MEAL_TYPE, fd.NAME, fd.CALORIES, fd.PROTEIN, fd.CARBS, fd.FAT, fd.SERVING_SIZE, fj.PORTION, fj.DATE
                        FROM Food_Journal fj INNER JOIN Food_Database fd ON fj.FOOD_UUID = fd.FOOD_UUID WHERE fj.DATE = (?) ''', (date,))
@@ -49,7 +49,7 @@ def add_journal_entry(data):
     journal_uuid = str(uuid.uuid4()) # Journal entry receives unique UUID separate from food_uuid in Food_Database
     date = datetime_helpers.get_date()
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         # Journal intentionally uses FOOD_UUID from Food_Database to avoid data duplication in two tables.
         cursor.execute('''INSERT INTO Food_Journal (JOURNAL_UUID, FOOD_UUID, MEAL_TYPE, PORTION, DATE) 
@@ -66,7 +66,7 @@ def add_journal_entry(data):
 
 def delete_journal_entry(id):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Journal WHERE JOURNAL_UUID = (?) ''', (id,)) # Uses journal_uuid
         conn.commit()
@@ -80,7 +80,7 @@ def delete_journal_entry(id):
 
 def clear_journal():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''DELETE FROM Food_Journal''')
         conn.commit()

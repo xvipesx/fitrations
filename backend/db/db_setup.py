@@ -1,10 +1,10 @@
 import sqlite3
-import connection
+from .connection import DB_PATH
 
 
 def create_database():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Database initialized.")
     except sqlite3.Error as error:
@@ -15,7 +15,7 @@ def create_database():
 
 def create_food_database_table():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for food database table...")
 
@@ -64,7 +64,7 @@ def create_food_database_table():
         
 def create_journal_table():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for food journal table...")
 
@@ -111,7 +111,7 @@ def create_journal_table():
 
 def create_goals_table():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         print("Checking for the goals table...")
 

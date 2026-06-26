@@ -1,10 +1,10 @@
 import sqlite3
-import connection
+from .connection import DB_PATH
 
 
 def retrieve_goal():
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''SELECT * FROM Goals''')
         columns = [description[0] for description in cursor.description]
@@ -22,7 +22,7 @@ def retrieve_goal():
 
 def modify_goal(goal_update):
     try:
-        conn = sqlite3.connect(connection.DB_PATH)
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         cursor.execute('''UPDATE Goals SET CALORIES=?, PROTEIN=?, CARBS=?, FAT=? WHERE ROWID = 1''',
             (goal_update.calorie_goal, goal_update.protein_goal, goal_update.carbs_goal, goal_update.fat_goal))
