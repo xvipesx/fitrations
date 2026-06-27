@@ -9,3 +9,15 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
+.version-card {
+  color: #ffffff;
+  font-size: 10px;
+  display: flex;
+  margin-top: auto;  /* consume all available leftover space above itself within that flex container, placing version at the bottom */
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #202D33;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+}
