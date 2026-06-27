@@ -32,19 +32,6 @@ function SetGoals () {
         setGoalForm({...goalForm, [data.target.name]: data.target.value})
     }
 
-
-    // Set initial goal
-    const handleGoalSet = async (form) => {
-        try {
-            const convertedForm = convertFormTypes(form)
-            const response = await api.post('/initial_goal', convertedForm)
-            resetForm()
-            return response
-        }
-        catch (error) {
-            console.error('Unable to proceed:', error)
-        }
-    }
     const handleGoalModify = async (form) => {
         try {
             const convertedForm = convertFormTypes(form)
