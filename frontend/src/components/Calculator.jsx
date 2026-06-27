@@ -58,10 +58,11 @@ function DisplayCalculator ({}) {
             <h2>TDEE Calculator</h2>
             <div className="container-section">
                 {userBMR && (
-                    <p>Your baseline BMR is: <b>{userBMR}</b></p>
+                    <p className="calculator-bmr">Your baseline BMR is: {userBMR}</p>
                 )}
+                <br/>
                 {userTDEE && (
-                    <p>Your daily TDEE is: <b>{userTDEE}</b></p>
+                    <p className="calculator-tdee">Your daily TDEE is: {userTDEE}</p>
                 )}
                 <br/>
                 <p className="hint">
@@ -124,25 +125,21 @@ function DisplayCalculator ({}) {
                     </label>
                     </p>
                     <br/>
-                    <div className="container-section">
-                        <p><b>Activity Level</b></p>
-                        <label className="if-liquid">
-                            <span className="if-liquid-label">Select an Activity Level</span>
-                            <select name="activity" value={formData.activity} onChange={updateFormData}>
-                                <option value='' disabled={true}>Select level...</option>
-                                <option value="sedentary">Sedentary (Desk Job or Light Exercise 0-1 days/week)</option>
-                                <option value="lightly_active">Lightly Active (Light Exercise 1-3 days/week)</option>
-                                <option value="moderately_active">Moderately Active (Moderate Exercise 3-5 days/week)</option>
-                                <option value="very_active">Very Active (Hard Training 6-7 days/week)</option>
-                                <option value="super_active">Super Active (Professional Athlete)</option>
-                            </select>
-                        </label>
-                        <br/>
-                        <p>
-                        <button type="submit" className="button-add">Calculate</button>
-                        <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>   
-                        </p>
-                    </div>
+                    <p><b>Activity Level</b></p>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Select an Activity Level</span>
+                        <select name="activity" value={formData.activity} onChange={updateFormData}>
+                            <option value='' disabled={true}>Select level...</option>
+                            <option value="sedentary">Sedentary (Desk Job or Light Exercise 0-1 days/week)</option>
+                            <option value="lightly_active">Lightly Active (Light Exercise 1-3 days/week)</option>
+                            <option value="moderately_active">Moderately Active (Moderate Exercise 3-5 days/week)</option>
+                            <option value="very_active">Very Active (Hard Training 6-7 days/week)</option>
+                            <option value="super_active">Super Active (Professional Athlete)</option>
+                        </select>
+                    </label>
+                    <br/>
+                    <button type="submit" className="button-add">Calculate</button>
+                    <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>   
                 </form>
             </div>
         </div>
