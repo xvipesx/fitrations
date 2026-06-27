@@ -2,46 +2,25 @@ import { useState, useEffect } from "react"
 import api from "../api.js"
 import "../styles/rightbar.css"
 
-function RightBar( {updatedIntake}) {
-    const [calorieGoal, setCalorieGoal] = useState(0)
-    const [proteinGoal, setProteinGoal] = useState(0)
-    const [carbGoal, setCarbsGoal] = useState(0)
-    const [fatGoal, setFatGoal] = useState(0)
-
-
-    const fetchDailyGoal = async () => {
-        try {
-            const response = await api.get('/retrieve_goal');
-            setCalorieGoal(response.data.CALORIES);
-            setProteinGoal(response.data.PROTEIN);
-            setCarbsGoal(response.data.CARBS);
-            setFatGoal(response.data.FAT);
-        }
-        catch (error) {
-            console.error("Failed to obtain daily goal information", error);
-        }
-    }
-    /* updatedIntake values are obtained through journal updates provided by the primary app and a utility calculator.
-    In order to keep a single API call, data is already handled at the app level. The updated journal happens via fetchJournal
-    and the array is sent to journalTotals. Primary app then passes the below values down to the RightBar via updatedIntake.
+function RightBar( {updatedCalorieGoal, updatedProteinGoal, updatedCarbGoal, updatedFatGoal, updatedIntake}) {
+    /* 
+    Updated values are obtained through journal and goal updates provided by the primary app and a utility calculator.
+    This is to help keep the API calls to a minimum and for simplicity. The RightBar's primary function is purely to display 
+    updated data to the user, and therefore receives variables from the app level only.
     */ 
-    const caloriesRemaining = calorieGoal - updatedIntake.calories
-    const proteinRemaining = proteinGoal - updatedIntake.protein
-    const carbsRemaining = carbGoal - updatedIntake.carbs
-    const fatRemaining = fatGoal - updatedIntake.fat
-
-    useEffect(() => {
-        fetchDailyGoal()
-    }, [])
+    const caloriesRemaining = updatedCalorieGoal - updatedIntake.calories
+    const proteinRemaining = updatedProteinGoal - updatedIntake.protein
+    const carbsRemaining = updatedCarbGoal - updatedIntake.carbs
+    const fatRemaining = updatedFatGoal - updatedIntake.fat
 
     return (
         <aside className="rightbar-view">
             <div className="nutrition-card">
                 <p className="rightbar-label">DAILY GOALS</p>
-                <p className="rightbar-value">Calories: {calorieGoal}</p>
-                <p className="rightbar-value">Protein: {proteinGoal}g</p>
-                <p className="rightbar-value">Carbs: {carbGoal}g</p>
-                <p className="rightbar-value">Fat: {fatGoal}g</p>
+                <p className="rightbar-value">Calories: {updatedCalorieGoal}</p>
+                <p className="rightbar-value">Protein: {updatedProteinGoal}g</p>
+                <p className="rightbar-value">Carbs: {updatedCarbGoal}g</p>
+                <p className="rightbar-value">Fat: {updatedFatGoal}g</p>
             </div>
             <div className="nutrition-card">
                 <p className="rightbar-label">REMAINING</p>

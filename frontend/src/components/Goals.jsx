@@ -3,7 +3,7 @@ import { useState } from "react"
 // Local imports
 import api from "../api"
 
-function SetGoals () {
+function SetGoals ( { onGoalUpdated } ) {
     // Set initial goal form state using strings for easier input by user. Will valid before sending to API.
     const[goalForm, setGoalForm] = useState({
         calorie_goal: "",
@@ -37,6 +37,7 @@ function SetGoals () {
             const convertedForm = convertFormTypes(form)
             const response = await api.put('/modify_goal', convertedForm)
             resetForm()
+            onGoalUpdated() // Ensure modifying the goal updates the app level state, causing a new goal fetch
             return response
         }
         catch (error) {

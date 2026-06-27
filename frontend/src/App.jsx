@@ -14,15 +14,19 @@ import DisplaySettings from "./components/Settings.jsx"
 
 
 function App() {
-    // Journal retrieval logic is at app level to ensure a single state and API call
-    // Set variables related to journal query actions
+    /* 
+    The app level processes both the journal and goal states, updating the lower level components as additional data is added through
+    updated fetches. 
+    */
     const now = new Date()
     const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
     const[query, setQuery] = useState(date)
-    /* journalEntries are an array consisting of 
+    /* 
+    journalEntries are an array consisting of 
     CALORIES, CARBS, DATE, FAT, JOURNAL_UUID, MEAL_TYPE, NAME, PORTION, PROTEIN and SERVING_SIZE
     */ 
     const[journalEntries, setJournalEntries] = useState([])
+
     // Used to established updated macro and calorie totals and provided to RightBar
     const[consumedData, setConsumedData] = useState([])
 
@@ -41,11 +45,37 @@ function App() {
             
     }
 
-    // calls fetchJournal to pass updated data down to Journal Display child
     useEffect(() => {
         fetchJournal()
     }, [query])
 
+    /*
+    Goal handling section containing state variables and the fetch capabilities to provide updates to those variables. 
+    */
+    const [calorieGoal, setCalorieGoal] = useState(0)
+    const [proteinGoal, setProteinGoal] = useState(0)
+    const [carbGoal, setCarbsGoal] = useState(0)
+    const [fatGoal, setFatGoal] = useState(0)
+
+    const fetchDailyGoal = async () => {
+        try {
+            const response = await api.get('/retrieve_goal');
+            setCalorieGoal(response.data.CALORIES);
+            setProteinGoal(response.data.PROTEIN);
+            setCarbsGoal(response.data.CARBS);
+            setFatGoal(response.data.FAT);
+        }
+        catch (error) {
+            console.error("Failed to obtain daily goal information", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchDailyGoal()
+    }, [])
+
+
+    // Default view is set to the journal on app load
     const [activeView, setActiveView] = useState("journal")
 
     return (
@@ -76,19 +106,27 @@ function App() {
                 }
                 {activeView === "goals" && 
                 <div className="container-appview">
-                    <SetGoals />
+                    <SetGoals 
+                        // Updates the RightBar with the new goals on update
+                        onGoalUpdated={fetchDailyGoal} 
+                    />
                 </div>
                 }
                 {activeView === "settings" && 
                 <div className="container-appview">
                     <DisplaySettings 
-                        // Clear the entire journal table
+                        // When the journal is cleared, fetch the Journal again to show it is empty
                         onJournalClear={fetchJournal}
                     />
                 </div>
                 }
             </main>
-            <RightBar updatedIntake={consumedData}
+            <RightBar 
+                updatedCalorieGoal={calorieGoal}
+                updatedProteinGoal={proteinGoal}
+                updatedCarbGoal={carbGoal}
+                updatedFatGoal={fatGoal}
+                updatedIntake={consumedData}
             />
         </div>
     )
