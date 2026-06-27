@@ -132,7 +132,11 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
                     </thead>
                     <tbody>
                         {journalParentData.map((entry) => (
-                            <tr onClick={() => handleClick(entry.JOURNAL_UUID)} key={entry.JOURNAL_UUID}>
+                            <tr 
+                                key={entry.JOURNAL_UUID}
+                                onClick={() => handleClick(entry.JOURNAL_UUID)}
+                                className={selectedRow === entry.JOURNAL_UUID ? 'selected' : ''}
+                            >
                                 <td>{entry.MEAL_TYPE}</td>
                                 <td>{entry.NAME}</td>
                                 <td>{entry.PORTION}</td>
