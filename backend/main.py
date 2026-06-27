@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from db import db_setup
-from routers import journal, foods, goals, calc
+from routers import journal, foods, goals, calc, backups
 
 
 # Database operations to create initial DB if it doesn't exist and verify tables
@@ -40,6 +40,7 @@ app.include_router(journal.router)
 app.include_router(foods.router)
 app.include_router(goals.router)
 app.include_router(calc.router)
+app.include_router(backups.router)
 
 if __name__ == "__main__":
     import uvicorn
