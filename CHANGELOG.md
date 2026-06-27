@@ -1,3 +1,10 @@
+## [0.2.0] - 2026-06-27
+- Bugfix: Journal now highlights selected items separately from hover
+- Bugfix: Calorie and macro goals update in the right panel on modify without needing page refresh
+- Feature: Calculator provides TDEE values with user activity selection
+- Feature: Dedicated Settings panel
+- Feature: Database backup implemented that also downloads a compressed database copy to user
+- Feature: Added visible version number
 ## [0.1.0] - 2026-06-22
 - Publish first image and set version 0.1.0.
 ## [Unreleased]
