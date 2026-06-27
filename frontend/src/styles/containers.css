@@ -1,6 +1,7 @@
 .container-default {
     background-color: #182226;
     padding: 6px 15px;
+    gap: 4px;
     border-radius: 24px;
     justify-content: center;
     align-content: center;
@@ -9,6 +10,7 @@
 .container-section {
     padding: 10px 15px;
     border-radius: 8px;
+    gap: 4px;
     justify-content: center;
     align-content: center;
     background-color: #202D33;
