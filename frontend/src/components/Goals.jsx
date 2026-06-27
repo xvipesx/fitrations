@@ -27,7 +27,9 @@ function SetGoals ( { onGoalUpdated } ) {
         fat_goal: parseFloat(form.fat_goal),       
     })
 
-    // Form data updates as the state changes for the provided form fields
+    /* 
+    Form data updates as the state changes for the provided form fields
+    */
     const updateGoalForm = (data) => {
         setGoalForm({...goalForm, [data.target.name]: data.target.value})
     }
@@ -103,35 +105,6 @@ function SetGoals ( { onGoalUpdated } ) {
 
         </div>
     )
-
-
-
-}
-
-
-const styles = {
-    input: {
-        width: "75%",
-        boxSizing: "border-box",
-        padding: "10px",
-        backgroundColor: "#2c2c2c",
-        border: "2px solid #3e4041",
-        color: "#e0e0e0",
-        borderRadius: "4px",
-        display: "inline-block",
-    },
-    container: { 
-        alignItems: "center",
-        position: "relative", 
-        width: "100%" },
-    card: {
-        backgroundColor: "#2c2c2c",
-        border: "1px solid #3d3d3d",
-        borderRadius: "8px",
-        padding: "24px",
-        marginBottom: "24px",
-        alignItems: "left",
-    },
 }
 
 export default SetGoals
