@@ -33,6 +33,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Content-Disposition"], # Response header from backend required for proper naming of database backup file
 )
 
 # Add API endpoint routing

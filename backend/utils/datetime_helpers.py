@@ -18,5 +18,5 @@ def get_date():
 def file_timestamp():
     utc_now = datetime.now(timezone.utc)
     adjusted_now = utc_now.astimezone(SET_TIMEZONE)
-    adjusted_timestamp = adjusted_now.strftime("%Y-%m-%d %H%M%S")
+    adjusted_timestamp = adjusted_now.strftime("%Y-%m-%d_%H%M%S") # No spaces in timestamp format to match REGEX at frontend for proper filename
     return adjusted_timestamp
