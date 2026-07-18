@@ -109,6 +109,8 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
                             <option value="Lunch">Lunch</option>
                             <option value="Dinner">Dinner</option>
                             <option value="Snack">Snack</option>
+                            <option value="Pre-workout">Pre-workout</option>
+                            <option value="Post-workout">Post-workout</option>
                         </select>
                     </label>
                     <br/>
