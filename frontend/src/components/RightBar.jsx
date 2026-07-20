@@ -6,12 +6,13 @@ function RightBar( {updatedCalorieGoal, updatedProteinGoal, updatedCarbGoal, upd
     /* 
     Updated values are obtained through journal and goal updates provided by the primary app and a utility calculator.
     This is to help keep the API calls to a minimum and for simplicity. The RightBar's primary function is purely to display 
-    updated data to the user, and therefore receives variables from the app level only.
+    updated data to the user, and therefore receives variables from the app level only. Before providing the updated values
+    to display in the bar, we round to the nearest whole number.
     */ 
-    const caloriesRemaining = updatedCalorieGoal - updatedIntake.calories
-    const proteinRemaining = updatedProteinGoal - updatedIntake.protein
-    const carbsRemaining = updatedCarbGoal - updatedIntake.carbs
-    const fatRemaining = updatedFatGoal - updatedIntake.fat
+    const caloriesRemaining = Math.round(updatedCalorieGoal - updatedIntake.calories)
+    const proteinRemaining = Math.round(updatedProteinGoal - updatedIntake.protein)
+    const carbsRemaining = Math.round(updatedCarbGoal - updatedIntake.carbs)
+    const fatRemaining = Math.round(updatedFatGoal - updatedIntake.fat)
 
     return (
         <aside className="rightbar-view">
