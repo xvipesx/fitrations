@@ -5,7 +5,7 @@ import Logo from "./Logo.jsx"
 const navItems = [
     { id: "journal", label: "Journal" },
     { id: "database", label: "Database" },
-    { id: "calculator", label: "Calculator" },
+    { id: "calculator", label: "TDEE Calculator" },
     { id: "goals", label: "Goals" },
     { id: "settings", label: "Settings"},
 ]

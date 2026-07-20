@@ -25,3 +25,4 @@ class calcData(BaseModel):
     age: int
     sex: str
     activity: str
+    measurement: str

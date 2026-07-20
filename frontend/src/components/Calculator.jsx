@@ -4,6 +4,7 @@ import "../styles/calculator.css"
 
 
 function DisplayCalculator ({}) {
+
     // Set all initial values to defaults
     const[userBMR, setUserBMR] = useState('0');
     const[userTDEE, setUserTDEE] = useState('0');
@@ -13,7 +14,9 @@ function DisplayCalculator ({}) {
         age: "",
         sex: "",
         activity: "",
+        measurement: "",
     });
+
     // As the form is updated with user provided inputs, continuously update formData with the values
     const updateFormData = (data) => {
         setFormData ({...formData, [data.target.name]: data.target.value})
@@ -42,6 +45,7 @@ function DisplayCalculator ({}) {
             activity: "",
         });
     }
+
     // Sets data types to required backend pydantic model
     const convertFormTypes = (formData) => {
         return {
@@ -50,6 +54,7 @@ function DisplayCalculator ({}) {
             age: parseInt(formData.age),
             sex: formData.sex,
             activity: formData.activity,
+            measurement: formData.measurement,
         }
     }
 
@@ -73,11 +78,21 @@ function DisplayCalculator ({}) {
                 </p>
                 <br/>
             </div>
+            <hr/>
             <div className="container-section">
                 <form onSubmit={(event) => {
                     event.preventDefault() 
                     handleSubmit(formData)
                 }}>
+                    <p><b>Measurement System</b></p>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Measurement System</span>
+                        <select name="measurement" value={formData.measurement} onChange={updateFormData}>
+                            <option value='' disabled={true}>Select...</option>
+                            <option value="imperial">Imperial</option>
+                            <option value="metric">Metric</option>
+                        </select>
+                    </label>
                     <p><b>Personal Stats</b></p>
                     <label className="if-liquid">
                         <span className="if-liquid-label">Sex</span>
@@ -88,7 +103,7 @@ function DisplayCalculator ({}) {
                         </select>
                     </label>
                     <label className="if-liquid">
-                        <span className="if-liquid-label">Weight (pounds)</span>
+                        <span className="if-liquid-label">Weight</span>
                         <input
                             type="text" 
                             name="weight"
@@ -100,7 +115,7 @@ function DisplayCalculator ({}) {
                     </label>
                     <p>
                     <label className="if-liquid">
-                        <span className="if-liquid-label">Height (inches)</span>
+                        <span className="if-liquid-label">Height</span>
                         <input 
                             type="text"
                             name="height"

@@ -15,14 +15,23 @@ def pounds_to_kg(pounds):
 def inches_to_cm(inches):
     return inches * 2.54
 
-def calculate_bmr(weight, height, age, sex):
+def calculate_bmr_imperial(weight, height, age, sex):
     corrected_weight = pounds_to_kg(weight)
     corrected_height = inches_to_cm(height)
-    corrected_age = age
     if sex == 'Male':
-        bmr = (10 * corrected_weight) + (6.25 * corrected_height) - (5 * corrected_age) + 5
+        bmr = (10 * corrected_weight) + (6.25 * corrected_height) - (5 * age) + 5
     elif sex == 'Female':
-        bmr = (10 * corrected_weight) + (6.25 * corrected_height) - (5 * corrected_age) - 161
+        bmr = (10 * corrected_weight) + (6.25 * corrected_height) - (5 * age) - 161
+    else:
+        bmr = 0
+        print('Incorrect sex given.')
+    return round(bmr, 0)
+
+def calculate_bmr_metric(weight, height, age, sex):
+    if sex == 'Male':
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5
+    elif sex == 'Female':
+        bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161
     else:
         bmr = 0
         print('Incorrect sex given.')
@@ -35,15 +44,23 @@ def include_multiplier(bmr, activity):
     return round(tdee_value, 0)
 
 def calc_tdee(data):
-    bmr = calculate_bmr(data.weight, data.height, data.age, data.sex)
-    tdee = include_multiplier(bmr, data.activity)
-    result = {
-        "bmr_value": bmr,
-        "tdee_value": tdee,
-    }
-    return result
-
-
-
-
+    if data.measurement == 'imperial':
+        bmr = calculate_bmr_imperial(data.weight, data.height, data.age, data.sex)
+        tdee = include_multiplier(bmr, data.activity)
+        result = {
+            "bmr_value": bmr,
+            "tdee_value": tdee,
+        }
+        return result
+    if data.measurement == 'metric':
+        bmr = calculate_bmr_metric(data.weight, data.height, data.age, data.sex)
+        tdee = include_multiplier(bmr, data.activity)
+        result = {
+            "bmr_value": bmr,
+            "tdee_value": tdee,
+        }
+        return result
+    else:
+        bmr = 0
+        print('Incorrect sex given.')
 
