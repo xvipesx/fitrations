@@ -14,6 +14,8 @@ import './styles/tables.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
+  // Include StrictMode as Vite default to invoke behaviors twice during development so bugs are easier to spot
+  // Removed during build automatically
   <StrictMode>
     <App />
   </StrictMode>,
