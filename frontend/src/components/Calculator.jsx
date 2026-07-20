@@ -59,8 +59,9 @@ function DisplayCalculator ({}) {
     }
 
     return (
-        <div className="container-default">
+        <div className="container-shell">
             <h2>TDEE Calculator</h2>
+            <hr/>
             <div className="container-section">
                 {userBMR && (
                     <p className="calculator-bmr">Your baseline BMR is: {userBMR}</p>
@@ -84,7 +85,7 @@ function DisplayCalculator ({}) {
                     event.preventDefault() 
                     handleSubmit(formData)
                 }}>
-                    <p><b>Measurement System</b></p>
+                <div className="container-section-columns">
                     <label className="if-liquid">
                         <span className="if-liquid-label">Measurement System</span>
                         <select name="measurement" value={formData.measurement} onChange={updateFormData}>
@@ -93,7 +94,6 @@ function DisplayCalculator ({}) {
                             <option value="metric">Metric</option>
                         </select>
                     </label>
-                    <p><b>Personal Stats</b></p>
                     <label className="if-liquid">
                         <span className="if-liquid-label">Sex</span>
                         <select name="sex" value={formData.sex} onChange={updateFormData}>
@@ -102,6 +102,8 @@ function DisplayCalculator ({}) {
                             <option value="Female">Female</option>
                         </select>
                     </label>
+                </div>
+                <div className="container-section-rows">
                     <label className="if-liquid">
                         <span className="if-liquid-label">Weight</span>
                         <input
@@ -139,10 +141,8 @@ function DisplayCalculator ({}) {
                         />
                     </label>
                     </p>
-                    <br/>
-                    <p><b>Activity Level</b></p>
                     <label className="if-liquid">
-                        <span className="if-liquid-label">Select an Activity Level</span>
+                        <span className="if-liquid-label">Activity Level</span>
                         <select name="activity" value={formData.activity} onChange={updateFormData}>
                             <option value='' disabled={true}>Select level...</option>
                             <option value="sedentary">Sedentary (Desk Job or Light Exercise 0-1 days/week)</option>
@@ -155,6 +155,7 @@ function DisplayCalculator ({}) {
                     <br/>
                     <button type="submit" className="button-add">Calculate</button>
                     <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>   
+                    </div>
                 </form>
             </div>
         </div>

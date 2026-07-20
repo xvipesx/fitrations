@@ -106,90 +106,90 @@ function DatabaseManagement() {
     }
 
     return (
-        <div className="container-default">
+        <div className="container-shell">
             <h2>Database Management</h2>
-            <br/>
-            <p className="hint">This section will allow you to modify or add to your food database.</p>
-            <div>
+            <hr/>
+            <div className="container-section">
+                <p className="hint">
+                    This section will allow you to modify or add to your food database. To modify a food, search for the food item
+                    and select it, then change any field that needs updating before clicking <b>Update</b>. To add food, 
+                    fill out the blank fields below and click <b>Add</b>. Searching for, and selecting a food item, 
+                    before clicking <b>Delete</b> will remove it from your database. <b>Reset</b> will clear the fields without changes.
+                </p>
                 <br/>
                 <FoodSearch onFoodSelected={handleSelectedFood}/>
-                <br/>
-                {selectedFood && (
-                    <p><i>Selected Item: {selectedFood}</i></p>
-                )}
             </div>
-            <br/>
-            <hr/>
-            <br/>
-            <div>
+            <div className="container-section">
+                {selectedFood && (
+                    <p><b>You are updating the entry for: {selectedFood}</b></p>
+                )}
                 <form onSubmit={(event) => {
                     event.preventDefault()
                 }}>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Food Name</span>
-                        <input 
-                            className="input"
-                            type="text" 
-                            name="name"
-                            value={dbForm.name}
-                            onChange={updateDBForm}
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Calories (per serving)</span>
-                        <input 
-                            className="databaseManagement-input"
-                            type="text" 
-                            name="calories"
-                            value={dbForm.calories}
-                            onChange={updateDBForm}
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Protein (grams)</span>
-                        <input 
-                            className="databaseManagement-input"
-                            type="text" 
-                            name="protein"
-                            value={dbForm.protein}
-                            onChange={updateDBForm}
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Carbs (grams)</span>
-                        <input 
-                            className="databaseManagement-input"
-                            type="text" 
-                            name="carbs"
-                            value={dbForm.carbs}
-                            onChange={updateDBForm}
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Fat (grams)</span>
-                        <input 
-                            className="databaseManagement-input"
-                            type="text" 
-                            name="fat"
-                            value={dbForm.fat}
-                            onChange={updateDBForm}
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Serving Size</span>
-                        <input 
-                            className="databaseManagement-input"
-                            type="text"
-                            name="serving_size"
-                            value={dbForm.serving_size}
-                            onChange={updateDBForm}
-                        />
-                    </label>
+                    <div className="container-section-rows">
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Food Name</span>
+                            <input 
+                                className="input"
+                                type="text" 
+                                name="name"
+                                value={dbForm.name}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                    </div>
+                    <div className="container-section-columns">
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Calories (per serving)</span>
+                            <input 
+                                className="databaseManagement-input"
+                                type="text" 
+                                name="calories"
+                                value={dbForm.calories}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Protein (grams)</span>
+                            <input 
+                                className="databaseManagement-input"
+                                type="text" 
+                                name="protein"
+                                value={dbForm.protein}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Carbs (grams)</span>
+                            <input 
+                                className="databaseManagement-input"
+                                type="text" 
+                                name="carbs"
+                                value={dbForm.carbs}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Fat (grams)</span>
+                            <input 
+                                className="databaseManagement-input"
+                                type="text" 
+                                name="fat"
+                                value={dbForm.fat}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Serving Size</span>
+                            <input 
+                                className="databaseManagement-input"
+                                type="text"
+                                name="serving_size"
+                                value={dbForm.serving_size}
+                                onChange={updateDBForm}
+                            />
+                        </label>
+                    </div>
                     <br/>
                     <button type='button' className="button-add" onClick={() => handleDBSubmission(dbForm)}>Add</button>
                     <button type='button' className="button-update" onClick={() => handleDBModify(dbForm.food_uuid, dbForm)}>Update</button>
