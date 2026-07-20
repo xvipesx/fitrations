@@ -1,19 +1,35 @@
-.container-default {
-    background-color: #182226;
-    padding: 6px 15px;
-    gap: 4px;
-    border-radius: 24px;
+/* Standard shell for all components displayed in the center pane */
+.container-shell {
+    padding: 5px 5px;
+    gap: 6px;
+    border-radius: 10px;
     justify-content: center;
+    vertical-align: middle;
     align-content: center;
 }
 
+/* Used for squared off sections within the overall container shell */
 .container-section {
-    padding: 10px 15px;
+    padding: 10px 10px;
     border-radius: 8px;
     gap: 4px;
+    margin: 10px;
     justify-content: center;
     align-content: center;
     background-color: #202D33;
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
+
+.container-section-columns {
+    gap: 4px;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.container-section-rows {
+    gap: 4px;
+    margin: 10px;
+}
+
