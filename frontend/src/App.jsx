@@ -19,7 +19,7 @@ function App() {
     updated fetches. 
     */
     const now = new Date()
-    const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+    const[date, setDate] = useState(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`)
     const[query, setQuery] = useState(date)
     /* 
     journalEntries are an array consisting of 
@@ -43,6 +43,20 @@ function App() {
             console.error("Failed to receive journal data:", error)
         }
             
+    }
+    /*
+    When the user selects a new date for the journal view, we update the app level date with it, set the API query with the new date
+    and then fetch the journal again with the updated query parameter
+    */
+    const fetchDate = (userdate) => {
+        try {
+            setDate(userdate)
+            setQuery(userdate)
+            fetchJournal()
+        }
+        catch (error) {
+            console.error("Failed to set date properly:", error)
+        }
     }
 
     useEffect(() => {
@@ -77,7 +91,6 @@ function App() {
 
     // Default view is set to the journal on app load
     const [activeView, setActiveView] = useState("journal")
-
     return (
         <div className="container-appshell">
             <LeftBar onNavigate={setActiveView} />
@@ -91,6 +104,10 @@ function App() {
                         onJournalUpdated={fetchJournal}
                         // Update Journal.jsx dynamically when a submission is deleted
                         onJournalDelete={fetchJournal}
+                        // Provide today's date to the journal and also updates the date based on user selection
+                        // App level control of this variable for consistency with journal and goal values
+                        journalParentDate={date}
+                        onJournalDateUpdated={fetchDate}
                     /> 
                 </div>
                 }
