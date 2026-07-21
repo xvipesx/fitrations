@@ -64,33 +64,29 @@ function DisplaySettings ( {onJournalClear} ) {
     }
 
     return (
-    <div className="container-default">
+    <div className="container-shell">
         <h2>Settings</h2>
-        <br/>
         <hr/>
-        <br/>
-        <p><b>Database Backup</b></p>
-        <p className="hint">Download a copy of your database.</p>
-        <br/>
-        <button type="button" className="button-add" onClick={() => handleDBBackup()}>Backup Database</button>
-        <br/>
-        <br/>
+        <div className="container-section">
+            <p><b>Database Backup</b></p>
+            <p className="hint">Download a copy of your database and save it locally.</p>
+            <br/>
+            <button type="button" className="button-add" onClick={() => handleDBBackup()}>Backup Database</button>
+        </div>
         <hr/>
-        <br/>
-        <p><b>Journal Clear</b></p>
-        <p className="hint">The below action will reset the entire journal to a clean slate. Please be sure you wish to do this as there is no way to revert the clear.</p>
-        <br/>
-        <button type="button" className="button-delete" onClick={() => handleJournalClear()}>Clear Journal</button>
-        <br/>
-        <br/>
+        <div className="container-section">
+            <p><b>Journal Clear</b></p>
+            <p className="hint">Reset your journal and delete all entries. Please be sure you wish to do this as there is no way to revert the clear. <b>This cannot be undone!</b></p>
+            <br/>
+            <button type="button" className="button-delete" onClick={() => handleJournalClear()}>Clear Journal</button>
+        </div>
         <hr/>
-        <br/>
-        <p><b>Database Clear</b></p>
-        <p className="hint">The below action will reset the entire database to a clean slate. Please be sure you wish to do this as there is no way to revert the clear.</p>
-        <br/>
-        <button type='button' className="button-delete" onClick={() => handleDBClear()}>Clear Database</button>
-        <br/>
-        <br/>
+        <div className="container-section">
+            <p><b>Database Clear</b></p>
+            <p className="hint">Reset the entire database to a clean slate. Please be sure you wish to do this as there is no way to revert the clear. <b>This cannot be undone!</b></p>
+            <br/>
+            <button type='button' className="button-delete" onClick={() => handleDBClear()}>Clear Database</button>
+        </div>
     </div>
     )
 

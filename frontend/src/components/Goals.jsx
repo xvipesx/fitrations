@@ -48,61 +48,64 @@ function SetGoals ( { onGoalUpdated } ) {
     }
 
     return (
-        <div className="container-default">
-            <h2>Goal Setting</h2>
-                <form onSubmit={(event) => {
-                    event.preventDefault()
-                }}>
-                <label className="if-liquid">
-                    <span className="if-liquid-label">Calorie Goal</span>
-                    <input
-                        className="input" 
-                        type="text"
-                        name="calorie_goal"
-                        value={goalForm.calorie_goal}
-                        onChange={updateGoalForm}
-                        required
-                    />
-                </label>
-                <label className="if-liquid">
-                    <span className="if-liquid-label">Protein Goal</span>
-                    <input
-                        className="input"
-                        type="text"
-                        name="protein_goal"
-                        value={goalForm.protein_goal}
-                        onChange={updateGoalForm}
-                        required
-                    />
-                </label>
-                <label className="if-liquid">
-                    <span className="if-liquid-label">Carb Goal</span>
-                    <input
-                        className="input"
-                        type="text"
-                        name="carbs_goal"
-                        value={goalForm.carbs_goal}
-                        onChange={updateGoalForm}
-                        required
-                    />
-                </label>
-                <label className="if-liquid">
-                    <span className="if-liquid-label">Fat Goal</span>
-                    <input 
-                        className="input"
-                        type="text"
-                        name="fat_goal"
-                        value={goalForm.fat_goal}
-                        onChange={updateGoalForm}
-                        required
-                    />
-                </label>
-                <br/>
-                <button type='button' className="button-add" onClick={() => handleGoalModify(goalForm)}>Set</button>
-                <button type='reset' className="button-reset" onClick={resetForm}>Reset</button>
-            </form>
-
-
+        <div className="container-shell">
+            <h2>Goals</h2>
+            <hr/>
+            <div className="container-section">
+                <div className="container-section-rows">
+                    <form onSubmit={(event) => {
+                        event.preventDefault()
+                    }}>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Calorie Goal</span>
+                        <input
+                            className="input" 
+                            type="text"
+                            name="calorie_goal"
+                            value={goalForm.calorie_goal}
+                            onChange={updateGoalForm}
+                            required
+                        />
+                    </label>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Protein Goal</span>
+                        <input
+                            className="input"
+                            type="text"
+                            name="protein_goal"
+                            value={goalForm.protein_goal}
+                            onChange={updateGoalForm}
+                            required
+                        />
+                    </label>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Carb Goal</span>
+                        <input
+                            className="input"
+                            type="text"
+                            name="carbs_goal"
+                            value={goalForm.carbs_goal}
+                            onChange={updateGoalForm}
+                            required
+                        />
+                    </label>
+                    <label className="if-liquid">
+                        <span className="if-liquid-label">Fat Goal</span>
+                        <input 
+                            className="input"
+                            type="text"
+                            name="fat_goal"
+                            value={goalForm.fat_goal}
+                            onChange={updateGoalForm}
+                            required
+                        />
+                    </label>
+                    <br/>
+                    <button type='button' className="button-add" onClick={() => handleGoalModify(goalForm)}>Set</button>
+                    <button type='reset' className="button-reset" onClick={resetForm}>Reset</button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
