@@ -1,3 +1,9 @@
+## [0.3.0] - 2026-07-20
+- Feature: Implemented calendar date selection for journal entries
+- Feature: Include pre and post workout options for meal types
+- Feature: TDEE calculator now allows for imperial or metric calculations
+- Bugfix: Fixed rounding error with partial portions in macro calculations
+- UI: Various UI styling changes for organization and more flexible layout
 ## [0.2.0] - 2026-06-27
 - Bugfix: Journal now highlights selected items separately from hover
 - Bugfix: Calorie and macro goals update in the right panel on modify without needing page refresh

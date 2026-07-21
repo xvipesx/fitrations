@@ -6,7 +6,7 @@
 
 ## About the Project
 
-### **Current Version:** v0.2.0
+### **Current Version:** v0.3.0
 
 FitRations is a self hosted nutrition manager that puts you in control of your food and goals. The backend for FitRations is written in Python using FastAPI. Data related to foods, your personal journal and goals are conveniently in a single SQLite database file that you can backup as you see fit. The frontend is written using React/JavaScript. As it is web-based, it acts as a website for easy management of your nutritional journal and can be hosted locally or via a VPS. This project does not now, nor will ever, collect telemetry or promote ads and there is no plan to add any sort of AI functionality.
 

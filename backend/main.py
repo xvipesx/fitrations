@@ -17,7 +17,7 @@ db_setup.create_goals_table()
 app = FastAPI(
     title="FitRations Nutrition Tracking API",
     description="API to interact with the FitRations SQL database.",
-    version="0.2.0",
+    version="0.3.0",
     docs_url="/docs",
 )
 

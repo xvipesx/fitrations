@@ -31,7 +31,7 @@ function RightBar( {updatedCalorieGoal, updatedProteinGoal, updatedCarbGoal, upd
                 <p className={`rightbar-value ${fatRemaining < 0 ? 'rightbar-negative' : 'rightbar-positive'}`}>Fat: {fatRemaining}g</p>
             </div>
             <div className="version-card">
-                FitRations v0.2.0
+                FitRations v0.3.0
             </div>
         </aside>
     )
