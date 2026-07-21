@@ -3,7 +3,7 @@ import api from "../api.js"
 import FoodSearch from "./FoodSearch.jsx"
 
 
-function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete, onJournalClear }) {
+function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete, onJournalClear, journalParentDate, onJournalDateUpdated }) {
     // Prepare blank form and food selection variable for journal submissions
     const[formData, setFormData] = useState({
         food_uuid: "",
@@ -24,6 +24,11 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
     // Form data updates for portions and meal type before submission to journal
     const updateFormData = (data) => {
         setFormData({...formData, [data.target.name]: data.target.value})
+    }
+
+    // Update the app level variable of the date used to display the journal
+    const updateDate = (data) => {
+        onJournalDateUpdated(data.target.value)
     }
 
     // Ensure types are correct before submission to update journal
@@ -76,54 +81,61 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
 
     // FoodSearch needs to obtain a food from the database, and store it in a variable here with the UUID so I can pair it with the portions and meal type
     return (
-        <div className="container-default">
+        <div className="container-shell">
             <h2>Daily Journal</h2>
-            <div>
+            <hr/>
+            <div className="container-section">
                 <FoodSearch onFoodSelected={handleSelectedFood} />
-                <br/>
-                {selectedFood && (
+            </div>
+            <div className="container-section">
+                <b>{selectedFood && (
                     <p>Selected Item: {selectedFood}</p>
-                )}
+                )}</b>
                 <form onSubmit={(event) => {
                     event.preventDefault()
                     handleSubmit(formData)
                     }}>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Number of Portions</span>
-                        <input
-                            type="text"
-                            className="input"
-                            name="portion" 
-                            value={formData.portion}
-                            onChange={updateFormData}
-                            required
-                        />
-                    </label>
-                    <br/>
-                    <label className="if-liquid">
-                        <span className="if-liquid-label">Meal:</span>
-                        <select className="select" name="meal_type" value={formData.meal_type} onChange={updateFormData} required>
-                            <option value='' disabled={true}>Select meal...</option>
-                            <option value="Breakfast">Breakfast</option>
-                            <option value="Lunch">Lunch</option>
-                            <option value="Dinner">Dinner</option>
-                            <option value="Snack">Snack</option>
-                            <option value="Pre-workout">Pre-workout</option>
-                            <option value="Post-workout">Post-workout</option>
-                        </select>
-                    </label>
-                    <br/>
-                    <br/>
-                    <button type="submit" className="button-add">Add</button>
-                    <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>
+                    <div className="container-section-columns">
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Number of Portions</span>
+                            <input
+                                type="text"
+                                className="input"
+                                name="portion" 
+                                value={formData.portion}
+                                onChange={updateFormData}
+                                required
+                            />
+                        </label>
+                        <label className="if-liquid">
+                            <span className="if-liquid-label">Meal:</span>
+                            <select className="select" name="meal_type" value={formData.meal_type} onChange={updateFormData} required>
+                                <option value='' disabled={true}>Select meal...</option>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                                <option value="Snack">Snack</option>
+                                <option value="Pre-workout">Pre-workout</option>
+                                <option value="Post-workout">Post-workout</option>
+                            </select>
+                        </label>
+                    </div>
+                <button type="submit" className="button-add">Add</button>
+                <button type="reset" className="button-reset" onClick={resetFields}>Reset</button>
                 </form>
             </div>
-            <br/>
-            <hr/>
-            <br/>
+                <hr/>
             <div className="container-section">
-                <label>Today's Journal Entries</label>
+                <div className="container-section-columns">
+                <label className="if-liquid">
+                <span className="if-liquid-label">Date:</span>
+                    <input
+                        type="date"
+                        name="userdate"
+                        value={journalParentDate}
+                        onChange={updateDate} />
+                </label>
+                </div>
                 <table className="table">
                     <thead className="tr">
                         <tr>
@@ -146,8 +158,8 @@ function DisplayJournal ({ journalParentData, onJournalUpdated, onJournalDelete,
                         ))}
                     </tbody>
                 </table>
-            <br/>
-            <button type="button" className="button-reset" disabled={!selectedRow} onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
+                <br/>
+                <button type="button" className="button-reset" disabled={!selectedRow} onClick={() => handleDelete(selectedRow)}>Delete Entry</button>
             </div>
         </div>
     )
