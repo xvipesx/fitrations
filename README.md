@@ -1,4 +1,6 @@
-![App screenshot](docs/images/screenshot1.png)
+<p align="center">
+    <img src="docs/images/screenshot1.png" alt="screenshot" width="700">
+</p>
 
 ## Disclaimers
 - FitRations is currently undergoing active development. You can expect some bugs and issues as this project moves along.
@@ -13,7 +15,7 @@ FitRations is a self hosted nutrition manager that puts you in control of your f
 This project started as a solution to a problem I had personnally of not wanting another subscription, being frustrated with spreadsheets and being tired of everything collecting data. This was ultimately a learning journey to help promote more coding experience, while also solving my fitness nutrition tracking problem.
 
 ## Installation
-Before installing, ensure you are running the latest version of Docker. Then, download the docker-compose.yaml file and modify it to fit your requirements. The current variable settings are fairly minimal at this time.
+Before installing, ensure you are running the latest version of Docker. Then, download the docker-compose.yaml file and modify it to fit your requirements. The current environment parameters are fairly minimal at this time.
 
 ## Env Params
 
