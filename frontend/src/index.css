@@ -24,7 +24,7 @@ Color pallete
   --text: #CCD9D1;
   --text-h: #f3f4f6;
   --bg: #000000;
-  --border: #777474;
+  --border: #097B72;
   --code-bg: #1f2028;
   --accent: #c084fc;
   --accent-bg: rgba(192, 132, 252, 0.15);
@@ -60,7 +60,7 @@ body {
 
 #root {
   height: 100%;
-  width: 1126px;
+  width: 75%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
