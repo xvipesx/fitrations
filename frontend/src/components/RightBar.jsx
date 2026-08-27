@@ -13,6 +13,10 @@ function RightBar( {updatedCalorieGoal, updatedProteinGoal, updatedCarbGoal, upd
     const proteinRemaining = Math.round(updatedProteinGoal - updatedIntake.protein)
     const carbsRemaining = Math.round(updatedCarbGoal - updatedIntake.carbs)
     const fatRemaining = Math.round(updatedFatGoal - updatedIntake.fat)
+    const caloriesConsumed = Math.round(updatedIntake.calories)
+    const proteinConsumed = Math.fround(updatedIntake.protein)
+    const carbsConsumed = Math.round(updatedIntake.carbs)
+    const fatConsumed = Math.round(updatedIntake.fat)
 
     return (
         <aside className="rightbar-view">
@@ -22,6 +26,13 @@ function RightBar( {updatedCalorieGoal, updatedProteinGoal, updatedCarbGoal, upd
                 <p className="rightbar-value">Protein: {updatedProteinGoal}g</p>
                 <p className="rightbar-value">Carbs: {updatedCarbGoal}g</p>
                 <p className="rightbar-value">Fat: {updatedFatGoal}g</p>
+            </div>
+            <div className="nutrition-card">
+                <p className="rightbar-label">CURRENT</p>
+                <p className="rightbar-value">Calories: {caloriesConsumed}</p>
+                <p className="rightbar-value">Protein: {proteinConsumed}g</p>
+                <p className="rightbar-value">Carbs: {carbsConsumed}g</p>
+                <p className="rightbar-value">Fat: {fatConsumed}g</p>
             </div>
             <div className="nutrition-card">
                 <p className="rightbar-label">REMAINING</p>
