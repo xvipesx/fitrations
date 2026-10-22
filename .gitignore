@@ -1,7 +1,7 @@
 # Project files
 **/__pycache__
 fitrations.db
-backend/venv/
+backend/.venv/
 frontend/node_modules/
 NOTES.md
 
@@ -13,6 +13,7 @@ data/
 # Development files
 .env.development
 docker-compose.dev.yaml
+.vscode/
 
 # OS specific files
 .DS_Store
